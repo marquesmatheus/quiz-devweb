@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Resultado • Quiz DevWeb{% endblock %}
+{% block content %}
+<div class="card result-hero pop">
+  <div class="player-big">
+    {% if user.foto %}<img src="{{ url_for('static', filename=user.foto) }}">{% else %}<span class="big-fox">🦊</span>{% endif %}
+    <div>
+      <h1>{{ msg }}</h1>
+      <p><b>{{ user.nome }}</b> • 🎯 {{ modo_label }} • 🏅 posição <b>#{{ posicao }}</b> no ranking</p>
+    </div>
+  </div>
+  <div class="score-row">
+    <div class="score-circle">{{ acertos }}<small>/{{ total }}</small></div>
+    <div>
+      <div class="pct">{{ percentual }}% de acertos</div>
+      <div class="stars">
+        {% if percentual >= 80 %}⭐⭐⭐⭐⭐{% elif percentual >= 60 %}⭐⭐⭐⭐{% elif percentual >= 40 %}⭐⭐⭐{% elif percentual >= 20 %}⭐⭐{% else %}⭐{% endif %}
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-purple" href="{{ url_for('ranking') }}">🏆 Ver ranking</a>
+        <a class="btn btn-yellow" href="{{ url_for('reiniciar') }}">🔁 Jogar de novo</a>
+        <a class="btn btn-ghost" href="{{ url_for('sair') }}">👋 Trocar jogador</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="section-title">📝 Sua revisão (onde errou e onde brilhou)</h2>
+{% for r in revisao %}
+<div class="card review {{ 'ok' if r.acertou else 'no' }}">
+  <div class="rev-head">
+    <span class="rev-badge">{{ '✅' if r.acertou else '❌' }} Questão {{ r.n }} • {{ r.tema }}</span>
+  </div>
+  <p class="rev-q">{{ r.titulo }}</p>
+  {% for op in r.opcoes %}
+    {% set i = loop.index0 %}
+    <div class="recap {{ 'is-correct' if i==r.correta else '' }} {{ 'is-wrong' if i==r.escolha and not r.acertou else '' }}">
+      <b>{{ letters[i] }})</b> {{ op }}{% if i==r.correta %} ✅{% endif %}{% if i==r.escolha and not r.acertou %} 👈 você{% endif %}
+    </div>
+  {% endfor %}
+  <div class="explain small">📖 {{ r.explicacao }}</div>
+</div>
+{% endfor %}
+{% endblock %}

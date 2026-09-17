@@ -1,0 +1,1962 @@
+[
+  {
+    "id": 1,
+    "correta": 3,
+    "explicacao": "Proxy reverso recebe a requisição do cliente e repassa para um ou mais servidores internos (backend), retornando a resposta como se fosse ele. Isso permite esconder a topologia interna, fazer balanceamento, cache e terminação SSL. Proxy direto (forward) é o contrário: o cliente configura o proxy para sair à internet.",
+    "opcoes": [
+      "Um proxy configurado no navegador do cliente para acessar a internet anonimamente.",
+      "Um módulo do Nginx que serve apenas arquivos estáticos sem repassar requisições.",
+      "Um firewall que bloqueia portas 80 e 443 e libera apenas SSH.",
+      "Um servidor que recebe requisições externas e as repassa para servidores internos, devolvendo a resposta ao cliente como se fosse ele."
+    ],
+    "tema": "Nginx",
+    "titulo": "Em um cenário com Nginx na frente de uma API Flask em Python, o que caracteriza o Nginx atuando como proxy reverso?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 2,
+    "correta": 1,
+    "explicacao": "<article> = conteúdo autocontido e sindicável (post, questão, card). <section> = agrupamento temático genérico com heading. <div> não tem semântica. Usar article permite RSS/leitores entenderem a unidade e melhora SEO/acessibilidade. H1 único por página (ou por article em outline) é boa prática.",
+    "opcoes": [
+      "Não há diferença; são apelidos para <div> e o Google ignora todos.",
+      "Cada questão é um conteúdo independente e distribuível, então <article>; <section> agrupa blocos temáticos; <div> não tem semântica e deve ser último recurso.",
+      "Deve-se usar <section> para cada questão e <article> apenas para o rodapé.",
+      "O correto é usar <table> para questões, pois tudo na web é tabela."
+    ],
+    "tema": "HTML",
+    "titulo": "No quiz, cada questão é um card independente. Qual escolha semântica é correta entre `article`, `section` e `div`? Por quê?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 3,
+    "correta": 0,
+    "explicacao": "position:absolute se ancora no ancestral posicionado mais próximo (relative/absolute/fixed/sticky), não necessariamente no pai direto. Sem nenhum, ancora no viewport/initial containing block. Por isso o selo foi para o canto da página: faltou position:relative no card.",
+    "opcoes": [
+      "O absolute se ancora no ancestral posicionado mais próximo; sem nenhum, vai para o bloco inicial (viewport). Faltou `position: relative` no card.",
+      "Absolute sempre se ancora no <body>, independente de qualquer pai.",
+      "É preciso usar `float: absolute`, que não existe, causando o bug.",
+      "O z-index negativo empurrou o selo para outra cidade."
+    ],
+    "tema": "CSS",
+    "titulo": "Um selo 'DIFÍCIL 🔥' com `position: absolute; top: 0; right: 0` dentro do card foi parar no topo da PÁGINA. Qual o erro?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 4,
+    "correta": 2,
+    "explicacao": "Container queries (@container) respondem ao tamanho do PAI, não do viewport. O card pode estar em sidebar estreita num monitor gigante — media query o trataria como desktop e quebraria. Com container-type: inline-size no pai, o componente é verdadeiramente reutilizável.",
+    "opcoes": [
+      "Porque media queries foram removidas do Chrome em 2025.",
+      "Porque container queries carregam 10x mais rápido por usar fibra ótica.",
+      "Porque media queries olham o viewport: numa sidebar estreita em tela gigante, o card quebra. Container queries olham o pai, tornando o componente reutilizável em qualquer layout.",
+      "Não há vantagem; é apenas sintaxe mais longa para o mesmo efeito."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O card de questão fica ótimo sozinho, mas quebra quando colocado na sidebar. Por que `@container` resolve o que `@media` não resolve?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 5,
+    "correta": 0,
+    "explicacao": "var sofre hoisting com undefined e vaza do bloco; let/const têm TDZ (erro se usar antes) e respeitam bloco. No loop com var + setTimeout, todos imprimem 4 (mesma variável); com let, 0,1,2,3 (uma por iteração). Por isso var em loop + async é bug clássico.",
+    "opcoes": [
+      "Com `var` imprime 4,4,4,4 (var vaza do bloco e é compartilhada); com `let` imprime 0,1,2,3 (uma binding por iteração). É hoisting + TDZ vs escopo de bloco.",
+      "Ambos imprimem 0,1,2,3; não há diferença entre var e let.",
+      "Dá erro de sintaxe usar var em 2026, pois foi removido.",
+      "O setTimeout executa antes do loop terminar, imprimindo valores negativos."
+    ],
+    "tema": "JavaScript",
+    "titulo": "```js\nfor (var i = 0; i < 4; i++) setTimeout(() => console.log(i), 0);\n```\nO que imprime? E se trocar `var` por `let`? Por quê?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 6,
+    "correta": 1,
+    "explicacao": "Sem proxy_set_header Host $host, o backend recebe 'Host: 127.0.0.1:5000' e pode gerar URLs e redirects errados, quebrar virtual hosts e validação de Host. O correto é repassar o Host original e também X-Real-IP e X-Forwarded-For / X-Forwarded-Proto.",
+    "opcoes": [
+      "O Flask passa a escutar na porta 80 automaticamente, dispensando configuração de firewall.",
+      "O backend recebe o Host interno (ex: 127.0.0.1:5000) em vez do domínio original, quebrando redirects, virtual hosts e geração de URLs absolutas.",
+      "O Nginx passa a armazenar as senhas dos usuários em texto puro no access.log.",
+      "Nada muda, pois o header Host é recriado automaticamente pelo kernel do Linux."
+    ],
+    "tema": "Nginx",
+    "titulo": "Por que a diretiva `proxy_set_header Host $host;` é crítica ao usar Nginx como proxy reverso para o Flask? Qual o bug clássico se ela for omitida?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 7,
+    "correta": 3,
+    "explicacao": "DOCTYPE html aciona o standards mode. Sem ele, o navegador entra em quirks mode e emula bugs do IE5: box model errado (width inclui padding/border de outro jeito), centralizações e CSS quebram de forma sutil e diferente por navegador.",
+    "opcoes": [
+      "Ele importa automaticamente o Bootstrap via CDN.",
+      "Ele ativa o modo escuro do site.",
+      "Ele é obrigatório para o JavaScript funcionar, senão o <script> é ignorado.",
+      "Ele coloca o navegador em standards mode; sem ele cai em quirks mode, mudando box model e quebrando layouts CSS de forma inconsistente."
+    ],
+    "tema": "HTML",
+    "titulo": "Um aluno removeu o `<!DOCTYPE html>` e o layout quebrou só em alguns navegadores. O que o DOCTYPE realmente faz?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 8,
+    "correta": 2,
+    "explicacao": "flex:1 é shorthand para flex-grow:1, flex-shrink:1, flex-basis:0%. Com basis 0, todo espaço é distribuído pelo grow, ignorando conteúdo inicial. Com basis auto, o tamanho base é o conteúdo. Por isso botões com textos diferentes ficam iguais com flex:1 e diferentes sem.",
+    "opcoes": [
+      "Porque `flex:1` ativa a câmera frontal do celular.",
+      "Porque `flex:1` é inválido e o navegador sorteia larguras.",
+      "Porque `flex:1` equivale a `flex: 1 1 0%` (basis zero): ignora o tamanho do conteúdo e divide o espaço igualmente; sem isso o basis é o conteúdo.",
+      "Porque o gap soma 1px a cada botão alternado."
+    ],
+    "tema": "CSS",
+    "titulo": "4 botões de alternativa com `flex: 1` ficam iguais, mas sem o `flex:1` ficam de tamanhos diferentes. O que o `flex: 1` realmente faz?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 9,
+    "correta": 1,
+    "explicacao": "Mobile-first: base é o mobile (1 col, sem hover), media queries com min-width adicionam complexidade conforme a tela cresce. Desktop-first faz o inverso com max-width. Mobile-first tende a CSS menor e performance melhor no 4G, além de forçar priorização de conteúdo.",
+    "opcoes": [
+      "Escrever todo CSS dentro de `@media (max-width: 320px)` e torcer.",
+      "Escrever a base para mobile e usar `@media (min-width: ...)` para telas maiores (mobile-first), resultando em CSS menor e priorização de conteúdo.",
+      "Criar dois sites separados: m.site.com e www.site.com.",
+      "Usar apenas `max-width` porque `min-width` foi descontinuado."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Qual a diferença entre mobile-first e desktop-first em media queries? Qual é recomendado para o quiz usado por alunos no 4G?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 10,
+    "correta": 2,
+    "explicacao": "typeof null === 'object' (bug histórico do JS, null era ponteiro nulo tipo 0). Para null use x === null. NaN é number (typeof NaN === 'number'; teste com Number.isNaN). Array é object (use Array.isArray). undefined é 'undefined'.",
+    "opcoes": [
+      "`object`, `number` e `object` — null é object por bug histórico, NaN é number, array é object (use Array.isArray e === null).",
+      "`null`, `NaN` e `array` — typeof retorna os nomes exatos.",
+      "Dá erro de compilação nos três casos e o script para.",
+      "Retorna `undefined` para todos, pois typeof está obsoleto."
+    ],
+    "tema": "JavaScript",
+    "titulo": "No console do quiz: `typeof null`, `typeof NaN`, `typeof []` retornam o quê? (Pegadinha clássica de entrevista)",
+    "nivel": "avancado"
+  },
+  {
+    "id": 11,
+    "correta": 0,
+    "explicacao": "proxy_pass sem barra no final repassa a URI original completa (/api/login). Com barra no final (proxy_pass http://app/;), o prefixo do location é substituído. Essa é uma pegadinha clássica que quebra rotas e gera 404 no backend.",
+    "opcoes": [
+      "Sem a barra no final, a URI original completa é repassada (/api/login). Com a barra no final, o prefixo do location é substituído, mudando a rota que o backend recebe.",
+      "A barra no final ativa o modo HTTPS automaticamente com certificado self-signed.",
+      "A barra no final dobra a velocidade do proxy por ativar HTTP/3.",
+      "Não há diferença; a barra é apenas estética e ignorada pelo Nginx."
+    ],
+    "tema": "Nginx",
+    "titulo": "Analise:\n```nginx\nlocation /api/ {\n  proxy_pass http://127.0.0.1:5000;\n}\n```\nversus `proxy_pass http://127.0.0.1:5000/;` (com barra). Qual a diferença real?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 12,
+    "correta": 3,
+    "explicacao": "loading=lazy adia download até próximo do viewport, economizando banda e acelerando LCP. decoding=async evita bloquear. width/height reservam espaço e evitam CLS (layout shift). Para a foto do avatar pequena no topo, eager pode ser melhor; para galeria do ranking, lazy é ideal.",
+    "opcoes": [
+      "Usar `loading=eager` em todas as 200 fotos para carregar tudo de uma vez.",
+      "Colocar as fotos como `background-image` sem dimensões para economizar tags.",
+      "Converter todas as fotos para BMP de 20MB para máxima qualidade.",
+      "Usar `loading=lazy` + `width` e `height` definidos, adiando o download fora da tela e evitando deslocamento de layout (CLS)."
+    ],
+    "tema": "HTML",
+    "titulo": "A página de ranking tem 200 fotos de alunos e ficou pesada (LCP horrível). Qual técnica HTML resolve sem paginação?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 13,
+    "correta": 1,
+    "explicacao": "Especificidade: inline (1000) > id (100) > classe/atributo/pseudo-classe (10) > elemento/pseudo-elemento (1). #q1 .opcao (1 id + 1 classe = 110) vence .quiz .lista .opcao.correta (4 classes = 40). !important vence tudo exceto outro !important posterior/mais específico. Por isso 'não pega' mesmo com a classe.",
+    "opcoes": [
+      "Porque o navegador tem um limite de 3 classes por página e ignora o resto.",
+      "Porque ID vale 100 e cada classe vale 10: `#q1 .opcao` (110) vence `.quiz .lista .opcao.correta` (40). A ordem só desempataria em empate de especificidade.",
+      "Porque CSS ignora classes com mais de 6 letras.",
+      "Porque arquivos .css externos sempre perdem para <style> vazio."
+    ],
+    "tema": "CSS",
+    "titulo": "`.quiz .lista .opcao.correta { color: green }` não pinta a opção, mas `#q1 .opcao { color: red }` pinta. Por quê? (Cálculo de especificidade)",
+    "nivel": "avancado"
+  },
+  {
+    "id": 14,
+    "correta": 3,
+    "explicacao": "Com width=device-width, o CSS px equivale ao viewport lógico e media queries funcionam. Sem ele, o iPhone finge ter 980px e encolhe tudo (site miniatura). initial-scale=1 evita zoom inicial estranho. É o erro nº1 de 'meu media query não funciona no celular'.",
+    "opcoes": [
+      "Porque o iPhone não suporta media queries, apenas Android.",
+      "Porque media queries só funcionam com Wi-Fi, não com 4G.",
+      "Porque é preciso reiniciar o roteador para o CSS atualizar.",
+      "Sem o viewport, o mobile emula ~980px e encolhe a página; as queries de 768px nunca disparam. Com `width=device-width`, 1px CSS = 1px do viewport real."
+    ],
+    "tema": "Responsividade",
+    "titulo": "`@media (max-width: 768px)` funciona no DevTools mas NÃO no iPhone real. O site abre minúsculo. Qual a causa?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 15,
+    "correta": 2,
+    "explicacao": "Event loop: promise resolve vai para microtask (executa antes do próximo macrotask). setTimeout 0 é macrotask. Ordem: 'início', 'fim' (síncrono), depois microtasks ('promise'), depois macrotasks ('timeout'). Por isso o placar via promise atualiza antes do timeout.",
+    "opcoes": [
+      "Imprime início, timeout, promise, fim, pois setTimeout tem prioridade.",
+      "Imprime tudo ao mesmo tempo, pois JavaScript é multi-thread.",
+      "Imprime 'início', 'fim', 'promise', 'timeout': síncrono primeiro, depois microtasks (promise), depois macrotasks (setTimeout).",
+      "Dá deadlock e o navegador trava, pois não pode misturar promise com timeout."
+    ],
+    "tema": "JavaScript",
+    "titulo": "```js\nconsole.log('início');\nsetTimeout(()=>console.log('timeout'),0);\nPromise.resolve().then(()=>console.log('promise'));\nconsole.log('fim');\n```\nQual a ordem exata e por quê? (Event loop)",
+    "nivel": "avancado"
+  },
+  {
+    "id": 16,
+    "correta": 0,
+    "explicacao": "try_files tenta arquivos ($uri, $uri/) e só se não existir faz o fallback (@backend ou /index.html). Com proxy puro, toda requisição vai ao Python, desperdiçando CPU com CSS/imagens. A ordem try_files -> static -> proxy é o padrão performático.",
+    "opcoes": [
+      "Usar `try_files $uri $uri/ @backend;` servindo estáticos direto no Nginx e mandando ao Flask só o que não for arquivo, em vez de `proxy_pass` para tudo.",
+      "Colocar `proxy_pass` dentro de um `if` para cada extensão de imagem.",
+      "Desligar o gzip e o cache para forçar o navegador a pedir tudo ao Flask.",
+      "Servir estáticos com `return 200` vazio para economizar banda."
+    ],
+    "tema": "Nginx",
+    "titulo": "Seu Flask está lento porque o Nginx manda ATÉ CSS e imagens para o Python. Qual configuração resolve com performance?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 17,
+    "correta": 2,
+    "explicacao": "required + type=email + minlength/maxlength/pattern fazem validação nativa com mensagens localizadas e sem JS. novalidate desliga isso (usado quando você valida via JS). O atributo é `required` (com d), não `require`.",
+    "opcoes": [
+      "Colocar `novalidate` no form e `require` no input, que ativa a validação.",
+      "A validação só existe com JavaScript; HTML puro nunca valida nada.",
+      "Usar `required`, `type=email`, `minlength` e `pattern` no input, deixando o navegador validar antes do submit sem JS.",
+      "Usar `disabled` no input para obrigar o preenchimento."
+    ],
+    "tema": "HTML",
+    "titulo": "No cadastro (nome + foto), como exigir nome preenchido e e-mail válido SEM JavaScript, usando só HTML?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 18,
+    "correta": 3,
+    "explicacao": "Margin collapse: margens verticais adjacentes (irmãos ou pai-filho sem border/padding) se fundem na maior, não somam. 20px + 30px = 30px, não 50px. É a causa nº1 de 'faltam 20px'. Resolve com gap, padding/border no pai, flow-root ou flex/grid.",
+    "opcoes": [
+      "O navegador subtrai automaticamente 20px de toda margem por imposto digital.",
+      "As margens foram convertidas para padding pelo modo quirks.",
+      "O Flexbox divide todas as margens por 2.",
+      "As margens verticais adjacentes colapsam (fundem-se na maior): 20px + 30px = 30px, não 50px. É o margin collapse."
+    ],
+    "tema": "CSS",
+    "titulo": "Dois cards do quiz têm `margin: 20px` e `margin: 30px` encostadas, mas a distância real é 30px, não 50px. O que aconteceu?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 19,
+    "correta": 0,
+    "explicacao": "picture + source media + srcset/sizes: o navegador escolhe o primeiro source compatível e baixa UM arquivo ideal (mobile 480w, desktop 1200w). <img> sozinho baixa o mesmo arquivo pesado para todos. sizes informa o tamanho de exibição para o cálculo.",
+    "opcoes": [
+      "Usar `<picture>` com `<source media + srcset>` oferecendo versões 480w/800w/1200w, deixando o navegador baixar só a ideal para a tela.",
+      "Usar a mesma imagem 4K para todos e redimensionar com `width: 100%` no CSS.",
+      "Colocar `display: none` na imagem no mobile mas continuar baixando o arquivo de 5MB.",
+      "Converter tudo para GIF animado, que é mais leve."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O banner do quiz tem 4K (5MB) e mata o 4G dos alunos. Como entregar imagem leve no mobile e nítida no PC com o MESMO HTML?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 20,
+    "correta": 1,
+    "explicacao": "localStorage só guarda STRINGS (tudo vira string via toString). Objeto vira '[object Object]' se não serializar. Correto: setItem('ranking', JSON.stringify(array)) e JSON.parse(getItem). Cota ~5-10MB; estouro lança QuotaExceededError;¹ dado sensível nunca vai para lá (XSS lê tudo).",
+    "opcoes": [
+      "Basta fazer `localStorage.setItem('ranking', array)` que o objeto é guardado com tipos intactos.",
+      "É preciso serializar: `setItem('ranking', JSON.stringify(array))` e ler com `JSON.parse`, pois o storage só guarda strings (~5MB) e objeto puro vira '[object Object]'.",
+      "localStorage guarda até 5GB e aceita funções e classes sem serializar.",
+      "localStorage é assíncrono e precisa de await em toda chamada."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Você salvou o ranking com `localStorage.setItem('ranking', [{nome:'Ana',pts:38}])` e ao ler veio `\"[object Object]\"`. O que houve e qual o correto?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 21,
+    "correta": 2,
+    "explicacao": "X-Forwarded-For carrega a cadeia de IPs (cliente + proxies). Como pode ser forjado, o backend deve confiar apenas via set_real_ip_from + real_ip_header, ou ler o último IP adicionado pelo proxy confiável. request.remote_addr atrás do proxy será sempre o IP do Nginx (127.0.0.1).",
+    "opcoes": [
+      "Basta ler `request.remote_addr`, que atravessa o proxy automaticamente sem configuração.",
+      "Deve-se ler o header `X-Server-ID`, que o Nginx gera com o CPF do usuário.",
+      "Deve-se ler `X-Forwarded-For` / `X-Real-IP` configurando `proxy_set_header`, lembrando que o header pode ser forjado e só deve ser confiado vindo do proxy confiável.",
+      "O IP real é perdido para sempre atrás de qualquer proxy reverso, sem solução."
+    ],
+    "tema": "Nginx",
+    "titulo": "Sua app Flask atrás do Nginx precisa registrar o IP real do aluno para o ranking. `request.remote_addr` retorna sempre 127.0.0.1. Qual a solução correta?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 22,
+    "correta": 0,
+    "explicacao": "Label associado (for=id) amplia a área clicável (ótimo no mobile), dá foco ao input ao clicar e é lido pelo leitor de tela. Sem isso, só a bolinha clica e cegos não sabem o que a opção significa. Fieldset+legend agrupam as alternativas.",
+    "opcoes": [
+      "Associar cada radio a um <label for=id> dentro de <fieldset> com <legend>, ampliando clique, dando foco e tornando acessível a leitores de tela.",
+      "Usar apenas <span onclick> sem input real, pois é mais moderno.",
+      "Colocar o texto da opção como placeholder do radio.",
+      "Usar <div> com emoji de bolinha, dispensando inputs. Leitores de tela adivinham sozinhos."
+    ],
+    "tema": "HTML",
+    "titulo": "As alternativas do quiz são radio buttons minúsculos no celular e inacessíveis. Qual marcação resolve clique e acessibilidade?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 23,
+    "correta": 3,
+    "explicacao": "Grid: repeat(auto-fit, minmax(250px, 1fr)) cria quantas colunas couberem (≥250px) e estica. auto-fit colapsa trilhas vazias (centraliza/estica); auto-fill mantém trilhas vazias (deixa buracos). É a técnica nº1 para grade responsiva sem media queries.",
+    "opcoes": [
+      "Usar `float: left` em todas as questões e `clear: both` no rodapé.",
+      "Criar 12 media queries, uma para cada largura de celular existente.",
+      "Usar `<table>` com 3 colunas fixas de 400px.",
+      "Usar `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))`, criando colunas automáticas que quebram sozinhas sem media query."
+    ],
+    "tema": "CSS",
+    "titulo": "Como montar a grade de questões que tem 3 colunas no PC e 1 no celular SEM escrever media queries?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 24,
+    "correta": 1,
+    "explicacao": "dvh = dynamic viewport height: acompanha a barra do navegador (que some/aparece no scroll mobile). 100vh clássico trava na altura máxima e esconde conteúdo atrás da barra. dvh (com fallback vh, svh/lvh) resolve o 'botão Finalizar sumido' no Chrome Android/iOS.",
+    "opcoes": [
+      "`100vh` é perfeito no mobile e nunca dá problema.",
+      "Usar `100dvh` (dynamic vh, com fallback `100vh`), que acompanha a barra do navegador mobile que aparece/some no scroll.",
+      "Usar `height: 100%` no body que resolve tudo sem unidades novas.",
+      "Travar o scroll da página com `overflow: hidden` para o usuário não perceber."
+    ],
+    "tema": "Responsividade",
+    "titulo": "A tela final com `height: 100vh` esconde o botão no Chrome Android quando a barra de endereço aparece. Qual unidade moderna corrige? Por quê?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 25,
+    "correta": 3,
+    "explicacao": "== faz coerção (0=='0', 0==false, ''==false, null==undefined). === não converte. Quiz: comparar nota (number) com value de input (string) usando == dá falso-positivo. Regra: use === e converta explicitamente com Number().",
+    "opcoes": [
+      "Não há diferença; === é apenas mais rápido por usar GPU.",
+      "== compara tipos e === compara só valores, ao contrário do que todos pensam.",
+      "== é obsoleto e gera exceção em strict mode.",
+      "== converte tipos antes (0 == '0' é true, '' == false é true); === exige tipo igual. Por isso comparar nota com input deve usar === após Number()."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Por que `if (nota == '10')` aprovou um aluno com bug, e por que o time manda usar `===`? Dê exemplos da coerção.",
+    "nivel": "avancado"
+  },
+  {
+    "id": 26,
+    "correta": 1,
+    "explicacao": "least_conn envia para quem tem menos conexões ativas — ideal quando requisições têm duração variada (relatórios pesados vs leves). round-robin (padrão) alterna igualmente e pode sobrecarregar um servidor com tarefas longas. ip_hash fixa por IP (sessão), mas desbalanceia.",
+    "opcoes": [
+      "`round-robin`, pois ele sempre envia tudo para o servidor mais rápido.",
+      "`least_conn`, pois distribui para quem tem menos conexões ativas, ideal quando umas requisições são rápidas e outras demoradas.",
+      "`ip_hash`, pois ele criptografa o tráfego com hash SHA-512.",
+      "`random-prime`, pois sorteia números primos para escolher o backend."
+    ],
+    "tema": "Nginx",
+    "titulo": "Você tem 3 backends Flask: um preso numa consulta lenta e dois livres. Qual algoritmo de `upstream` evita mandar mais carga para o servidor ocupado?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 27,
+    "correta": 0,
+    "explicacao": "charset deve ser o primeiro meta no head para o parser decodificar corretamente acentos/emoji. Sem UTF-8, 'ç', 'ã' e emoji viram �. viewport com width=device-width, initial-scale=1 é obrigatório para responsividade (sem ele, mobile simula tela de 980px).",
+    "opcoes": [
+      "Declarar `<meta charset=utf-8>` no início do head e `<meta name=viewport content='width=device-width, initial-scale=1'>` para acentos corretos e escala mobile real.",
+      "Colocar o charset no fim do body e o viewport no arquivo CSS.",
+      "Usar `<meta charset=ascii>` para suportar emoji e acentos.",
+      "Viewport não é mais necessário em 2026 porque todo celular tem 5G."
+    ],
+    "tema": "HTML",
+    "titulo": "O nome 'João 🎮' aparece como 'Jo�o' e no celular o site abre minúsculo. Quais dois <meta> faltam e por quê?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 28,
+    "correta": 2,
+    "explicacao": "Custom properties herdam e cascateiam: --cor definida no card sobrescreve a do :root para aquele subtree. .btn usa var(--cor) e resolve no contexto onde está. Por isso o mesmo componente tem temas diferentes por contexto sem classe extra — poder do CSS moderno.",
+    "opcoes": [
+      "Porque variáveis CSS são globais e imutáveis como `const` do JavaScript.",
+      "Porque o navegador escolhe a cor aleatoriamente para divertir o dev.",
+      "Porque custom properties são resolvidas no elemento onde são usadas, herdando do ancestral mais próximo que a definiu; o card sobrescreveu a do :root só naquele contexto.",
+      "Porque `var()` só funciona no Safari."
+    ],
+    "tema": "CSS",
+    "titulo": "`:root { --cor: roxo }` mas botões dentro de `.card-promo { --cor: laranja }` ficam laranjas usando `background: var(--cor)`. Por quê? O que isso ensina?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 29,
+    "correta": 3,
+    "explicacao": "Toque: 44-48px mínimo (WCAG), hover não existe (usar :active/focus), evitar hover-only menus, viewport, sem scroll horizontal, inputs com font-size ≥16px (iOS dá zoom se menor), tap-highlight, e testar com throttle 4G.",
+    "opcoes": [
+      "Basta diminuir a fonte para 8px para caber mais texto.",
+      "Basta esconder metade das questões no mobile com display:none.",
+      "O segredo é usar `cursor: pointer` gigante, pois dedo é um mouse pequeno.",
+      "Alvos de toque ≥44px, nada dependente de :hover, sem scroll horizontal, inputs com fonte ≥16px (evita zoom do iOS), e teste com throttling de rede."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Alunos reclamam que erram a alternativa porque o botão é minúsculo no dedo e menus hover não abrem. Qual checklist touch-first resolve?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 30,
+    "correta": 0,
+    "explicacao": "Closure: a função interna guarda referência à variável externa mesmo após a externa retornar. Contador com let escondido não é acessível de fora — encapsulamento real sem classe. É base de módulos, callbacks e memoização.",
+    "opcoes": [
+      "Imprime 1, 2, 3 a cada clique, pois a closure preserva a variável `cliques` entre chamadas, criando estado privado sem variável global.",
+      "Imprime sempre 1, pois a variável morre a cada chamada.",
+      "Gera erro pois `cliques` não existe fora de criarContador.",
+      "O botão só funciona uma vez, depois a closure expira."
+    ],
+    "tema": "JavaScript",
+    "titulo": "```js\nfunction criarContador(){ let cliques=0; return ()=>++cliques; }\nconst c = criarContador();\nbtn.onclick = ()=> placar.textContent = c();\n```\nPor que o placar acumula mesmo com `cliques` 'escondida'? Que conceito é esse?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 31,
+    "correta": 2,
+    "explicacao": "proxy_cache_path define zona de cache em disco/RAM; proxy_cache_key define a chave (ex: scheme+host+uri); proxy_cache_valid define tempo por status; proxy_no_cache/proxy_cache_bypass permitem furar o cache para usuário logado. Sem isso, toda requisição bate no Flask.",
+    "opcoes": [
+      "Basta ligar `fastcgi_cache on;` que o Flask é cacheado automaticamente via USB.",
+      "Cache no Nginx só funciona para sites em PHP, nunca para Python.",
+      "Configurar `proxy_cache_path`, `proxy_cache` e `proxy_cache_valid` (e bypass para conteúdo logado), cacheando respostas GET repetidas sem bater no Flask.",
+      "Deletar o `access.log` a cada 5 minutos, o que libera cache por mágica."
+    ],
+    "tema": "Nginx",
+    "titulo": "A página de ranking é acessada 1000x/min e quase não muda. Como fazer o Nginx cachear a resposta do Flask e aliviar o Python?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 32,
+    "correta": 1,
+    "explicacao": "async baixa em paralelo e executa assim que chega (ordem imprevisível — bom para analytics independentes). defer baixa em paralelo e executa em ordem após o parse, antes de DOMContentLoaded — ideal para scripts que mexem no DOM. Script normal sem atributo bloqueia o parse.",
+    "opcoes": [
+      "Ambos bloqueiam a página do mesmo jeito; a diferença é só o nome.",
+      "async baixa em paralelo e executa ao chegar (sem ordem); defer baixa em paralelo e executa em ordem após o HTML ser parsed — melhor para scripts que manipulam o DOM.",
+      "defer só funciona em CSS, async só funciona em imagens.",
+      "Scripts com defer nunca executam se o usuário estiver offline."
+    ],
+    "tema": "HTML",
+    "titulo": "Qual a diferença prática entre `<script async>` e `<script defer>` no carregamento da página do quiz? Quando usar cada um?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 33,
+    "correta": 0,
+    "explicacao": "clamp(MIN, IDEAL, MAX) = min(max(MIN, IDEAL), MAX). Com 1rem, 2.5vw+1rem, 2rem: nunca menor que 1rem, nunca maior que 2rem, fluido no meio. Substitui 3 media queries de fonte e evita texto microscópico ou gigante.",
+    "opcoes": [
+      "Define fonte fluida entre 1rem e 2rem seguindo a largura da tela (2.5vw), sem media queries: `clamp(mín, ideal, máx)`.",
+      "Trava a fonte em exatamente 2.5vw para sempre.",
+      "É um erro de sintaxe; o correto seria `clamp(1rem, 2rem)`.",
+      "Só funciona se o usuário estiver com o celular na horizontal."
+    ],
+    "tema": "CSS",
+    "titulo": "O que faz `font-size: clamp(1rem, 2.5vw + 1rem, 2rem)` no título do quiz? Por que é melhor que 3 media queries?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 34,
+    "correta": 3,
+    "explicacao": "addEventListener permite múltiplos handlers, removeEventListener, capture/bubble e {once:true}. onclick sobrescreve o anterior. Delegação: um listener no pai com e.target.closest('.opcao') trata filhos atuais e futuros (40 botões = 1 listener). Sem isso, botões criados via JS ficam mortos.",
+    "opcoes": [
+      "Usar `onclick` em cada botão, pois permite vários handlers simultâneos.",
+      "Adicionar 40 listeners idênticos copiando e colando o código.",
+      "Usar `eval()` no HTML para cada clique, que é mais seguro.",
+      "Usar delegação: um `addEventListener` no container pai lendo `event.target.closest('.opcao')`, cobrindo botões atuais e futuros com 1 listener."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O quiz gera 40 botões via JS, mas só os 5 primeiros respondem ao clique. Qual padrão resolve com 1 listener para todos (atuais e futuros)?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 35,
+    "correta": 3,
+    "explicacao": "Terminação SSL: o Nginx faz o handshake TLS pesado (certificado, ChaCha/AES) e fala HTTP puro e rápido com o backend na rede interna. Isso simplifica certificados (um só lugar), permite HTTP/2 com o cliente e reduz CPU do Python.",
+    "opcoes": [
+      "Significa desligar o HTTPS e voltar para HTTP puro por ser mais moderno.",
+      "Significa que o Nginx gera um certificado diferente para cada requisição usando IA.",
+      "Significa bloquear a porta 443 e liberar apenas a porta 22.",
+      "Significa que o Nginx recebe o HTTPS do navegador, descriptografa, e repassa HTTP interno para o Flask, concentrando certificados e aliviando o backend."
+    ],
+    "tema": "Nginx",
+    "titulo": "O que é terminação SSL no Nginx e por que ela é recomendada antes de apps Flask?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 36,
+    "correta": 2,
+    "explicacao": "<dialog> tem showModal() com backdrop, foco preso, Esc fecha, e Camada top-layer acima de tudo (sem z-index wars). Div modal precisa reimplementar tudo isso e costuma furar acessibilidade (foco escapa para trás). form method=dialog fecha retornando value.",
+    "opcoes": [
+      "Usar <div> com display:none e torcer para o leitor de tela adivinhar.",
+      "Usar alert() para cada feedback, pois bloqueia tudo.",
+      "Usar o elemento <dialog> com showModal(), que dá backdrop, foco preso, Esc e top-layer acessível nativamente.",
+      "Usar <marquee> com a mensagem de acerto passando na tela."
+    ],
+    "tema": "HTML",
+    "titulo": "Você quer um popup de 'Acertou! 🎉' acessível, com fundo escurecido e fechamento no Esc. Por que `<dialog>` é superior a uma `<div>` improvisada?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 37,
+    "correta": 1,
+    "explicacao": "Stake: opacity<1, transform/filter/perspective, will-change, position:fixed dentro de transformado, z-index em flex/grid item etc. criam stacking context: z-index 9999 dentro dele nunca sai dele. O modal preso no card com transform é o caso clássico.",
+    "opcoes": [
+      "Porque o número 9999 é baixo demais; o mínimo para modal é 99999.",
+      "Porque o card com `transform`/`opacity`/`filter` cria um stacking context que aprisiona o z-index do filho; o modal só compete dentro do card.",
+      "Porque z-index só funciona em segundas-feiras.",
+      "Porque é preciso usar `!important` em todo z-index acima de 100."
+    ],
+    "tema": "CSS",
+    "titulo": "O modal de feedback com `z-index: 9999` aparece ATRÁS do header com `z-index: 10`. Como isso é possível?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 38,
+    "correta": 2,
+    "explicacao": "Same-origin: mesmo protocolo+domínio+porta. localStorage é isolado por origem e só guarda strings ~5MB, síncrono (trava a thread se abusar), sem expiração (sessionStorage morre na aba). XSS injeta JS na origem e lê TUDO — por isso nunca guardar token/senha lá; preferir cookie HttpOnly+SameSite para sessão.",
+    "opcoes": [
+      "localStorage vale para todos os sites e guarda 50GB com expiração automática.",
+      "localStorage é compartilhado entre abas de domínios diferentes por segurança.",
+      "localStorage é isolado por origem (protocolo+domínio+porta), só guarda strings (~5MB), persiste sem expirar, e é legível por qualquer JS da página — por isso XSS rouba tudo e senhas/tokens não devem ir para lá.",
+      "localStorage é criptografado pelo navegador e imune a XSS."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Por que guardar o token de login no `localStorage` para 'manter logado' é perigoso? Relacione com same-origin e XSS.",
+    "nivel": "avancado"
+  },
+  {
+    "id": 39,
+    "correta": 1,
+    "explicacao": "fetch só rejeita em erro de REDE (offline/DNS). 404/500 resolvem normalmente! É preciso checar response.ok (200-299) e lançar erro, senão o quiz marca 404 como sucesso e JSON.parse quebra. try/catch + if(!res.ok) throw é o padrão.",
+    "opcoes": [
+      "O fetch rejeita automaticamente em 404/500, então o código já está certo.",
+      "fetch SÓ rejeita em falha de rede; 404/500 caem no then. É preciso testar `if(!res.ok) throw` antes do `res.json()`, senão erro vira 'acerto'.",
+      "É preciso usar XMLHttpRequest, pois fetch não suporta JSON.",
+      "Basta colocar `catch` vazio que os erros se corrigem sozinhos."
+    ],
+    "tema": "JavaScript",
+    "titulo": "```js\nfetch('/api/questoes').then(r=>r.json()).then(mostrar)\n```\nSe a API retorna 404/500, por que o quiz quebra em vez de mostrar erro? Como corrigir?",
+    "nivel": "avancado"
+  },
+  {
+    "id": 40,
+    "correta": 0,
+    "explicacao": "JSON.parse lança SyntaxError em JSON inválido (ex: resto do ranking corrompido por edição manual). Sem try/catch, o script inteiro morre e o quiz fica branco. Padrão: try { parse } catch { fallback [] } + validar forma antes de renderizar.",
+    "opcoes": [
+      "Envolver em `try/catch` com fallback (ex: `[]`) e validar o formato, pois `JSON.parse` lança e derruba o script inteiro se o dado estiver corrompido.",
+      "Usar `eval()` no lugar, que nunca lança erro.",
+      "Apagar o localStorage do usuário sem avisar a cada carregamento.",
+      "Ignorar, pois JSON.parse retorna null silenciosamente em erro."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Um aluno editou o `localStorage` no DevTools e o ranking quebrou (tela branca). `JSON.parse(localStorage.getItem('ranking'))` — o que faltou no código?",
+    "nivel": "avancado"
+  },
+  {
+    "correta": 3,
+    "explicacao": "Nginx é um servidor web famoso por aguentar milhares de acessos simultâneos com pouca memória. Ele serve sites, funciona como proxy reverso e balanceador de carga.",
+    "opcoes": [
+      "Uma linguagem de programação parecida com Python.",
+      "Um banco de dados para guardar senhas.",
+      "Um editor de código para making websites.",
+      "Um servidor web rápido que entrega sites e pode repassar pedidos para outros servidores (proxy reverso)."
+    ],
+    "tema": "Nginx",
+    "titulo": "O que é o Nginx?",
+    "nivel": "fundamental",
+    "id": 41
+  },
+  {
+    "correta": 1,
+    "explicacao": "Todo site HTTP usa a porta 80 por padrão — por isso não precisamos digitá-la. HTTPS usa 443.",
+    "opcoes": [
+      "Porta 22, a mesma do SSH.",
+      "Porta 80, o padrão do HTTP.",
+      "Porta 3306, a do banco de dados.",
+      "Porta 8080, sempre obrigatória."
+    ],
+    "tema": "Nginx",
+    "titulo": "Quando você acessa http://site.com sem informar porta, em qual porta o Nginx recebe o pedido?",
+    "nivel": "fundamental",
+    "id": 42
+  },
+  {
+    "correta": 0,
+    "explicacao": "Proxy reverso fica NA FRENTE dos servidores: recebe o pedido do visitante e repassa para o servidor certo (ex: o Flask), devolvendo a resposta. O usuário nem percebe que existe outro servidor atrás.",
+    "opcoes": [
+      "Um servidor que fica na frente do seu app, recebe os pedidos da internet e repassa para o servidor interno certo.",
+      "Um programa instalado no computador do visitante para acelerar a internet.",
+      "Um tipo de vírus que rouba senhas de sites.",
+      "Um cabo de rede mais rápido que o normal."
+    ],
+    "tema": "Nginx",
+    "titulo": "O que é um proxy reverso? (ideia básica)",
+    "nivel": "fundamental",
+    "id": 43
+  },
+  {
+    "correta": 2,
+    "explicacao": "proxy_pass diz: 'este endereço não sirvo eu, repasse para este outro servidor'. É assim que o Nginx entrega as páginas dinâmicas para o Flask.",
+    "opcoes": [
+      "Apagar todos os arquivos do site.",
+      "Criar uma cópia de segurança do banco de dados.",
+      "Repassar o pedido para outro servidor, como o Flask rodando na porta 5000.",
+      "Bloquear o acesso de um país inteiro."
+    ],
+    "tema": "Nginx",
+    "titulo": "Para que serve a diretiva `proxy_pass http://127.0.0.1:5000;`?",
+    "nivel": "fundamental",
+    "id": 44
+  },
+  {
+    "correta": 0,
+    "explicacao": "Um erro de digitação no config derruba todos os sites ao recarregar. `nginx -t` testa tudo antes, sem mexer no servidor ligado.",
+    "opcoes": [
+      "`nginx -t`, que testa se a configuração tem erros antes de aplicar.",
+      "Desligar o computador e ligar de novo.",
+      "Apagar o arquivo de configuração e recomeçar do zero.",
+      "Mandar um e-mail para o suporte do Nginx."
+    ],
+    "tema": "Nginx",
+    "titulo": "Antes de recarregar o Nginx com uma configuração nova, qual comando verifica se está tudo certo?",
+    "nivel": "fundamental",
+    "id": 45
+  },
+  {
+    "correta": 3,
+    "explicacao": "access.log guarda QUEM acessou o quê e quando. error.log guarda os ERROS do servidor. São os dois primeiros lugares para investigar qualquer problema.",
+    "opcoes": [
+      "Os dois guardam as senhas dos usuários.",
+      "access.log guarda fotos e error.log guarda vídeos.",
+      "São arquivos temporários que podem ser apagados a qualquer hora.",
+      "access.log registra os acessos ao site; error.log registra os erros do servidor."
+    ],
+    "tema": "Nginx",
+    "titulo": "Qual a diferença entre `access.log` e `error.log`?",
+    "nivel": "fundamental",
+    "id": 46
+  },
+  {
+    "correta": 2,
+    "explicacao": "Cada bloco server é um site (ou parte) que o Nginx atende: qual porta escuta, qual domínio responde e onde estão os arquivos.",
+    "opcoes": [
+      "O bloco que desliga o servidor à meia-noite.",
+      "O bloco que instala atualizações sozinho.",
+      "O bloco que configura um site: porta, domínio e arquivos atendidos.",
+      "O bloco que mostra propagandas para os visitantes."
+    ],
+    "tema": "Nginx",
+    "titulo": "Na configuração do Nginx, o que o bloco `server { ... }` representa?",
+    "nivel": "fundamental",
+    "id": 47
+  },
+  {
+    "correta": 1,
+    "explicacao": "`location /` casa com TODOS os endereços que começam com / (ou seja, o site inteiro). Locations mais específicos, como /api/, têm prioridade sobre ele.",
+    "opcoes": [
+      "Apenas a página inicial, e mais nada.",
+      "Todos os endereços do site (é o location mais genérico).",
+      "Somente arquivos que terminam com a letra o.",
+      "Nenhum endereço; é apenas um comentário."
+    ],
+    "tema": "Nginx",
+    "titulo": "O que o bloco `location / { ... }` atende?",
+    "nivel": "fundamental",
+    "id": 48
+  },
+  {
+    "correta": 0,
+    "explicacao": "HTTPS (cadeado do navegador) usa a porta 443 por padrão, assim como HTTP usa a 80.",
+    "opcoes": [
+      "Porta 443, o padrão do HTTPS.",
+      "Porta 21, a do FTP.",
+      "Porta 25, a do e-mail.",
+      "Porta 5000, sempre."
+    ],
+    "tema": "Nginx",
+    "titulo": "Qual a porta padrão do HTTPS (o cadeado 🔒 do navegador)?",
+    "nivel": "fundamental",
+    "id": 49
+  },
+  {
+    "correta": 2,
+    "explicacao": "reload recarrega a configuração SEM derrubar quem está navegando (zero downtime). restart desliga tudo e liga de novo, derrubando conexões ativas.",
+    "opcoes": [
+      "Não há diferença, são sinônimos.",
+      "reload é mais lento que restart.",
+      "reload aplica a nova configuração sem derrubar visitantes; restart desliga e liga o servidor.",
+      "reload só funciona de madrugada."
+    ],
+    "tema": "Nginx",
+    "titulo": "Qual a diferença entre `nginx -s reload` e `restart`?",
+    "nivel": "fundamental",
+    "id": 50
+  },
+  {
+    "correta": 3,
+    "explicacao": "`root /var/www/site;` diz onde estão os arquivos do site no disco. Sem ele, o Nginx não sabe de onde servir as páginas.",
+    "opcoes": [
+      "A senha de administrador do servidor.",
+      "O nome do dono do site.",
+      "A quantidade de visitantes por dia.",
+      "A pasta do computador onde estão os arquivos do site."
+    ],
+    "tema": "Nginx",
+    "titulo": "Para que serve a diretiva `root /var/www/meusite;`?",
+    "nivel": "fundamental",
+    "id": 51
+  },
+  {
+    "correta": 0,
+    "explicacao": "Balancear carga = dividir os visitantes entre vários servidores iguais, para nenhum ficar sobrecarregado e o site não cair.",
+    "opcoes": [
+      "Dividir os visitantes entre vários servidores para aguentar mais acessos e não cair.",
+      "Deixar o site mais pesado para treinar a paciência do usuário.",
+      "Cobrar mais caro de quem acessa de celular.",
+      "Apagar metade das fotos para o site carregar rápido."
+    ],
+    "tema": "Nginx",
+    "titulo": "O que é balanceamento de carga? (ideia básica)",
+    "nivel": "fundamental",
+    "id": 52
+  },
+  {
+    "correta": 2,
+    "explicacao": "`listen 80;` = escute a porta 80. Sem ela, o Nginx não atende nada naquela porta.",
+    "opcoes": [
+      "`porta`",
+      "`escutar`",
+      "`listen`",
+      "`ouvir_aqui`"
+    ],
+    "tema": "Nginx",
+    "titulo": "Qual diretiva diz em qual porta o Nginx deve escutar?",
+    "nivel": "fundamental",
+    "id": 53
+  },
+  {
+    "correta": 1,
+    "explicacao": "CSS, imagens e JS não mudam: o Nginx entrega direto do disco rapidinho, sem acordar o Python à toa. O Flask fica livre para o que é dinâmico (quiz, ranking).",
+    "opcoes": [
+      "Pelo Flask, para o Python se exercitar.",
+      "Pelo Nginx direto do disco, que é muito mais rápido e alivia o Python.",
+      "Pelo banco de dados, que guarda arquivos melhor.",
+      "Não precisa servir; o navegador inventa o CSS sozinho."
+    ],
+    "tema": "Nginx",
+    "titulo": "Arquivos que nunca mudam (CSS, imagens) devem ser servidos por quem?",
+    "nivel": "fundamental",
+    "id": 54
+  },
+  {
+    "correta": 3,
+    "explicacao": "server_name diz qual domínio aquele bloco atende (ex: quiz.escola.com). É assim que vários sites dividem a mesma porta 80.",
+    "opcoes": [
+      "O apelido carinhoso do servidor.",
+      "A senha do Wi-Fi da empresa.",
+      "O número de telefone do suporte.",
+      "O domínio que aquele bloco de configuração atende, ex: quiz.escola.com."
+    ],
+    "tema": "Nginx",
+    "titulo": "O que a diretiva `server_name` define?",
+    "nivel": "fundamental",
+    "id": 55
+  },
+  {
+    "correta": 0,
+    "explicacao": "Pelo cabeçalho Host (o domínio digitado). Cada server_name diferente recebe seus próprios visitantes, todos na mesma porta.",
+    "opcoes": [
+      "Pelo domínio digitado (Host): cada `server_name` recebe seus visitantes na mesma porta.",
+      "Sorteando um site aleatório a cada visita.",
+      "Pela cor do navegador do visitante.",
+      "Não é possível; cada site precisa de um computador separado."
+    ],
+    "tema": "Nginx",
+    "titulo": "Como o Nginx atende VÁRIOS sites diferentes na mesma porta 80?",
+    "nivel": "fundamental",
+    "id": 56
+  },
+  {
+    "correta": 2,
+    "explicacao": "502 = 'recebi seu pedido, mas quem estava atrás de mim (o Flask) não respondeu'. Quase sempre: Flask desligado, porta errada ou erro no Python.",
+    "opcoes": [
+      "Que a internet do visitante acabou.",
+      "Que o site foi hackeado com certeza.",
+      "Que o Nginx está no ar, mas o app de trás (Flask) não respondeu.",
+      "Que o Nginx foi desinstalado do servidor."
+    ],
+    "tema": "Nginx",
+    "titulo": "Seu quiz mostra `502 Bad Gateway`. O que isso significa na prática?",
+    "nivel": "fundamental",
+    "id": 57
+  },
+  {
+    "correta": 1,
+    "explicacao": "`try_files` tenta entregar o arquivo pedido; se não existir, chama o plano B (ex: mandar para o Flask ou mostrar a index). Evita erro feio à toa.",
+    "opcoes": [
+      "Contar quantas vezes o site foi visitado.",
+      "Tentar servir o arquivo pedido e, se não existir, usar uma alternativa (ex: o app).",
+      "Deletar arquivos antigos automaticamente.",
+      "Traduzir o site para inglês."
+    ],
+    "tema": "Nginx",
+    "titulo": "Para que serve o `try_files $uri $uri/ @backend;`? (ideia básica)",
+    "nivel": "fundamental",
+    "id": 58
+  },
+  {
+    "correta": 3,
+    "explicacao": "O Flask sozinho é ótimo desenvolvendo, mas em produção o Nginx na frente dá segurança (SSL), velocidade (estáticos/cache) e estabilidade (vários backends).",
+    "opcoes": [
+      "Porque o Flask não funciona sem Nginx.",
+      "Porque a lei exige Nginx em todo site.",
+      "Porque o Nginx deixa o código Python mais bonito.",
+      "Porque o Nginx cuida de SSL, arquivos estáticos, cache e distribui carga — o Flask cuida só da lógica."
+    ],
+    "tema": "Nginx",
+    "titulo": "Por que colocar o Nginx na frente do Flask em produção?",
+    "nivel": "fundamental",
+    "id": 59
+  },
+  {
+    "correta": 2,
+    "explicacao": "HTML = HyperText Markup Language: a linguagem de MARCAÇÃO que estrutura a página (títulos, textos, imagens, links). Não é linguagem de programação.",
+    "opcoes": [
+      "HyperText Mega_MAX Language.",
+      "How To Make Lasagna.",
+      "HyperText Markup Language: a linguagem que estrutura as páginas web.",
+      "HighTech Machine Learning."
+    ],
+    "tema": "HTML",
+    "titulo": "O que significa a sigla HTML?",
+    "nivel": "fundamental",
+    "id": 60
+  },
+  {
+    "correta": 0,
+    "explicacao": "html = raiz; head = configs invisíveis (título da aba, charset); body = tudo que aparece na tela.",
+    "opcoes": [
+      "`<html>` envolve tudo, `<head>` tem configs/título da aba, `<body>` tem o conteúdo visível.",
+      "`<head>` é o cabeçalho visível e `<body>` é o rodapé.",
+      "A ordem correta é body, head, html.",
+      "Só existe a tag `<html>`; as outras são opcionais e inúteis."
+    ],
+    "tema": "HTML",
+    "titulo": "Qual a estrutura básica de toda página HTML?",
+    "nivel": "fundamental",
+    "id": 61
+  },
+  {
+    "correta": 3,
+    "explicacao": "<p> = paragraph (parágrafo). Cada <p> é um bloco de texto separado.",
+    "opcoes": [
+      "`<texto>`",
+      "`<par>`",
+      "`<pg>`",
+      "`<p>`"
+    ],
+    "tema": "HTML",
+    "titulo": "Qual tag cria um parágrafo de texto?",
+    "nivel": "fundamental",
+    "id": 62
+  },
+  {
+    "correta": 1,
+    "explicacao": "h1 = título mais importante (um por página), h6 = menos importante. Usar em ordem ajuda Google e leitores de tela.",
+    "opcoes": [
+      "São 6 tamanhos de imagem.",
+      "São títulos do mais importante (h1) ao menos importante (h6).",
+      "São 6 tipos de botão.",
+      "h1 é o rodapé e h6 é o menu."
+    ],
+    "tema": "HTML",
+    "titulo": "Para que servem as tags `h1` até `h6`?",
+    "nivel": "fundamental",
+    "id": 63
+  },
+  {
+    "correta": 1,
+    "explicacao": "<a href=\"...\">texto</a> cria link. O href diz o destino; sem ele, não há para onde ir.",
+    "opcoes": [
+      "`<link>` com o atributo `para`.",
+      "`<a>` com o atributo `href` indicando o destino.",
+      "`<botao>` com o atributo `vai`.",
+      "Basta sublinhar o texto que vira link sozinho."
+    ],
+    "tema": "HTML",
+    "titulo": "Como se cria um link para outra página?",
+    "nivel": "fundamental",
+    "id": 64
+  },
+  {
+    "correta": 3,
+    "explicacao": "<img src> mostra a foto; alt descreve a imagem (leitores de tela + imagem quebrada + Google). Nunca deixe alt vazio em imagem importante.",
+    "opcoes": [
+      "`<foto>` com `caminho`.",
+      "`<imagem>` com `link`.",
+      "`<pic>` sem atributos.",
+      "`<img src='foto.jpg' alt='descrição da foto'>`."
+    ],
+    "tema": "HTML",
+    "titulo": "Como colocar uma imagem com descrição acessível?",
+    "nivel": "fundamental",
+    "id": 65
+  },
+  {
+    "correta": 0,
+    "explicacao": "ul = lista com bolinhas (não ordenada), ol = lista numerada (ordenada), li = cada item. Cardápio: ul; passo a passo: ol.",
+    "opcoes": [
+      "`ul` = lista com marcadores, `ol` = lista numerada, `li` = cada item.",
+      "`ul` = sublinhado, `ol` = negrito, `li` = itálico.",
+      "As três criam tabelas.",
+      "Listas só existem com JavaScript."
+    ],
+    "tema": "HTML",
+    "titulo": "Qual a diferença entre `ul`, `ol` e `li`?",
+    "nivel": "fundamental",
+    "id": 66
+  },
+  {
+    "correta": 2,
+    "explicacao": "Tags semânticas dizem O QUE o conteúdo é (cabeçalho, menu, conteúdo, rodapé), ajudando Google, acessibilidade e manutenção. div não diz nada.",
+    "opcoes": [
+      "São tags mais coloridas que as normais.",
+      "São tags que só funcionam no Chrome.",
+      "São tags com significado (header, nav, main, footer) que ajudam SEO e acessibilidade.",
+      "São tags secretas que o navegador esconde."
+    ],
+    "tema": "HTML",
+    "titulo": "O que são tags semânticas? Dê exemplos.",
+    "nivel": "fundamental",
+    "id": 67
+  },
+  {
+    "correta": 1,
+    "explicacao": "type muda o comportamento: text (texto), email (valida @), password (esconde), number (só números), file (arquivo/foto!).",
+    "opcoes": [
+      "Não existe type; todo input é igual.",
+      "O `type` define o comportamento: text, email, password, number, file etc.",
+      "O type muda apenas a cor do campo.",
+      "Inputs só aceitam números por padrão."
+    ],
+    "tema": "HTML",
+    "titulo": "No cadastro do quiz, como criar campos de texto, e-mail, senha e upload de foto?",
+    "nivel": "fundamental",
+    "id": 68
+  },
+  {
+    "correta": 0,
+    "explicacao": "action = para onde vão os dados; method GET = dados na URL (buscas), POST = dados escondidos (cadastros, login, upload).",
+    "opcoes": [
+      "`action` diz para onde os dados vão; `method` GET mostra na URL e POST envia escondido.",
+      "`action` é a cor do botão e `method` é o tamanho.",
+      "Forms não precisam de action nem method.",
+      "GET é para fotos e POST é para texto, sempre."
+    ],
+    "tema": "HTML",
+    "titulo": "O que fazem `action` e `method` na tag `<form>`?",
+    "nivel": "fundamental",
+    "id": 69
+  },
+  {
+    "correta": 2,
+    "explicacao": "table = tabela; tr = linha (row); td = célula (data); th = célula de cabeçalho. Na ordem: table > tr > td.",
+    "opcoes": [
+      "`tabela`, `linha`, `celula` em português.",
+      "`tab`, `lin`, `cel` abreviados.",
+      "`table` cria a tabela, `tr` a linha e `td` a célula.",
+      "Tabelas se fazem com `div` e oração."
+    ],
+    "tema": "HTML",
+    "titulo": "Quais tags montam uma tabela simples?",
+    "nivel": "fundamental",
+    "id": 70
+  },
+  {
+    "correta": 3,
+    "explicacao": "<!-- comentário --> é ignorado pelo navegador e serve para deixar recados no código para outros programadores (ou você no futuro).",
+    "opcoes": [
+      "`## comentário`.",
+      "`// comentário`.",
+      "`** comentário **`.",
+      "`<!-- comentário -->`."
+    ],
+    "tema": "HTML",
+    "titulo": "Como escrever um comentário em HTML?",
+    "nivel": "fundamental",
+    "id": 71
+  },
+  {
+    "correta": 1,
+    "explicacao": "lang informa o idioma: leitores de tela pronunciam certo, o Google classifica melhor e o corretor do navegador acerta o dicionário.",
+    "opcoes": [
+      "Não serve para nada, é enfeite.",
+      "Informa o idioma da página (pronúncia do leitor de tela, SEO, corretor).",
+      "Muda todo o texto para inglês automaticamente.",
+      "Aumenta a velocidade da internet."
+    ],
+    "tema": "HTML",
+    "titulo": "Para que serve `lang='pt-BR'` na tag html?",
+    "nivel": "fundamental",
+    "id": 72
+  },
+  {
+    "correta": 0,
+    "explicacao": "<title> aparece na aba do navegador, nos favoritos e no resultado do Google. Sem ele, a aba mostra o endereço cru.",
+    "opcoes": [
+      "Define o texto da aba do navegador e o título nos resultados do Google.",
+      "Define o título do e-mail que o site envia.",
+      "Aumenta o tamanho da fonte de tudo.",
+      "É o nome do arquivo HTML no computador."
+    ],
+    "tema": "HTML",
+    "titulo": "O que a tag `<title>` faz?",
+    "nivel": "fundamental",
+    "id": 73
+  },
+  {
+    "correta": 3,
+    "explicacao": "div = bloco (ocupa a linha toda, empilha vertical). span = em linha (fica no meio do texto). Por isso cards usam div e destaques no texto usam span.",
+    "opcoes": [
+      "Não há diferença.",
+      "div é nova e span é antiga.",
+      "div é para imagens e span é para vídeos.",
+      "div é bloco (linha toda) e span é inline (no meio do texto)."
+    ],
+    "tema": "HTML",
+    "titulo": "Qual a diferença entre `div` e `span`?",
+    "nivel": "fundamental",
+    "id": 74
+  },
+  {
+    "correta": 0,
+    "explicacao": "button executa AÇÃO na página (enviar, confirmar). a leva para OUTRO lugar (página/âncora). Usar certo ajuda acessibilidade e SEO.",
+    "opcoes": [
+      "`<button>` executa uma ação; `<a>` navega para outro endereço.",
+      "São iguais, tanto faz.",
+      "button só funciona com internet; link funciona offline.",
+      "Links são proibidos dentro de formulários."
+    ],
+    "tema": "HTML",
+    "titulo": "Quando usar `<button>` e quando usar `<a>`? ",
+    "nivel": "fundamental",
+    "id": 75
+  },
+  {
+    "correta": 2,
+    "explicacao": "<label for='id-do-input'> associa o texto ao campo: clicar no texto foca/marca o campo (ótimo no celular) e o leitor de tela anuncia certo.",
+    "opcoes": [
+      "Deixar o formulário mais bonito com letra cursiva.",
+      "Esconder o campo de senha.",
+      "Associar o texto ao campo: clique no texto foca o input e ajuda acessibilidade.",
+      "Enviar o formulário automaticamente."
+    ],
+    "tema": "HTML",
+    "titulo": "Para que serve `<label for='nome'>Nome:</label>`?",
+    "nivel": "fundamental",
+    "id": 76
+  },
+  {
+    "correta": 1,
+    "explicacao": "`required` obriga o preenchimento e o navegador barra o envio vazio, sem JS. Essencial no campo de nome do quiz.",
+    "opcoes": [
+      "Deixa o campo invisível.",
+      "Obriga o preenchimento: o navegador bloqueia o envio se estiver vazio.",
+      "Apaga o que foi digitado a cada 10 segundos.",
+      "Muda o campo para senha."
+    ],
+    "tema": "HTML",
+    "titulo": "O que o atributo `required` faz num input?",
+    "nivel": "fundamental",
+    "id": 77
+  },
+  {
+    "correta": 2,
+    "explicacao": "O navegador LÊ o HTML e MONTA a página na tela (texto, imagens, botões). HTML sozinho já mostra conteúdo; CSS embeleza e JS dá interação.",
+    "opcoes": [
+      "Apaga o HTML depois de ler.",
+      "Envia o HTML por e-mail para o dono do site.",
+      "Interpreta as tags e monta a página visual na tela.",
+      "Converte o HTML em PDF automaticamente."
+    ],
+    "tema": "HTML",
+    "titulo": "O que o navegador faz quando recebe um arquivo HTML?",
+    "nivel": "fundamental",
+    "id": 78
+  },
+  {
+    "correta": 1,
+    "explicacao": "CSS = Cascading Style Sheets: a linguagem que cuida da APARÊNCIA (cores, tamanhos, posições). HTML estrutura, CSS embeleza.",
+    "opcoes": [
+      "Creative Super System.",
+      "Cascading Style Sheets: a linguagem da aparência das páginas.",
+      "Computer Science Society.",
+      "Código Secreto do Site."
+    ],
+    "tema": "CSS",
+    "titulo": "O que significa CSS e para que serve?",
+    "nivel": "fundamental",
+    "id": 79
+  },
+  {
+    "correta": 3,
+    "explicacao": "inline (no style='') vale para 1 tag; <style> no head vale para a página; arquivo .css externo vale para o site todo (melhor: reutiliza e o navegador guarda em cache).",
+    "opcoes": [
+      "Só existe um jeito: dentro da tag.",
+      "CSS só funciona em arquivos .txt.",
+      "CSS precisa de internet via satélite.",
+      "Na tag (inline), no <style> da página ou em arquivo .css externo (o mais usado)."
+    ],
+    "tema": "CSS",
+    "titulo": "Quais as 3 formas de aplicar CSS?",
+    "nivel": "fundamental",
+    "id": 80
+  },
+  {
+    "correta": 0,
+    "explicacao": "seletor = QUEM recebe o estilo; propriedade = O QUE muda; valor = COMO fica. Ex: p { color: red; } pinta todos os parágrafos de vermelho.",
+    "opcoes": [
+      "`p { color: red; }`: seletor (quem), propriedade (o quê) e valor (como).",
+      "`red { p: color; }`: valor, seletor e propriedade.",
+      "CSS não usa chaves nem ponto e vírgula.",
+      "Toda regra CSS começa com a palavra `estilo`."
+    ],
+    "tema": "CSS",
+    "titulo": "Como se lê a regra `p { color: red; }`?",
+    "nivel": "fundamental",
+    "id": 81
+  },
+  {
+    "correta": 2,
+    "explicacao": ".nome pega TODOS com class='nome' (reutilizável). #nome pega o ÚNICO com id='nome'. No quiz, as 40 opções usam classe; o placar único usaria id.",
+    "opcoes": [
+      "Não há diferença.",
+      "Ponto é para títulos e hashtag é para textos.",
+      "`.classe` estiliza vários elementos; `#id` estiliza um elemento único.",
+      "Hashtag é mais moderna e substitui o ponto."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual a diferença entre `.opcao` e `#placar`?",
+    "nivel": "fundamental",
+    "id": 82
+  },
+  {
+    "correta": 3,
+    "explicacao": "color = cor do TEXTO; background-color = cor do FUNDO. Confundir os dois pinta o lugar errado.",
+    "opcoes": [
+      "São a mesma coisa.",
+      "color pinta o fundo e background-color pinta o texto.",
+      "Nenhuma das duas muda cor de verdade.",
+      "color muda o texto; background-color muda o fundo."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual a diferença entre `color` e `background-color`?",
+    "nivel": "fundamental",
+    "id": 83
+  },
+  {
+    "correta": 0,
+    "explicacao": "px = tamanho fixo; % = relativo ao pai; em/rem = relativo à fonte (bom para acessibilidade/zoom). Para texto, prefira rem.",
+    "opcoes": [
+      "`px` é fixo, `%` é relativo ao elemento pai, `em/rem` são relativos à fonte.",
+      "São três nomes para a mesma unidade.",
+      "px só serve para fotos e % só para vídeos.",
+      "em/rem foram proibidos em 2024."
+    ],
+    "tema": "CSS",
+    "titulo": "O que significam `px`, `%` e `em/rem`?",
+    "nivel": "fundamental",
+    "id": 84
+  },
+  {
+    "correta": 2,
+    "explicacao": "margin = espaço PARA FORA (afasta dos vizinhos). padding = espaço PARA DENTRO (entre borda e conteúdo). Lembrete: 'padding é peito pra dentro'.",
+    "opcoes": [
+      "São iguais, tanto faz usar um ou outro.",
+      "margin é interna e padding é externa.",
+      "margin afasta dos vizinhos (fora); padding afasta o conteúdo da borda (dentro).",
+      "margin só funciona em fotos."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual a diferença entre `margin` e `padding`?",
+    "nivel": "fundamental",
+    "id": 85
+  },
+  {
+    "correta": 1,
+    "explicacao": "Toda caixa = conteúdo no centro, padding ao redor, depois borda, depois margin. Entender isso resolve 80% dos 'por que não alinha?!'.",
+    "opcoes": [
+      "margin, borda, padding, conteúdo (de fora para dentro).",
+      "conteúdo, padding, borda, margin (de dentro para fora).",
+      "Só existe conteúdo e mais nada.",
+      "A ordem muda a cada navegador."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual a ordem do box model, de dentro para fora?",
+    "nivel": "fundamental",
+    "id": 86
+  },
+  {
+    "correta": 3,
+    "explicacao": "font-size = tamanho da letra; font-family = qual fonte (Arial, Fredoka...); font-weight = grossura (negrito = bold/700).",
+    "opcoes": [
+      "As três mudam a cor do texto.",
+      "font-size muda a fonte e font-family muda o tamanho.",
+      "Só font-size existe; as outras são invenção.",
+      "font-size = tamanho, font-family = desenho da letra, font-weight = grossura/negrito."
+    ],
+    "tema": "CSS",
+    "titulo": "O que fazem `font-size`, `font-family` e `font-weight`?",
+    "nivel": "fundamental",
+    "id": 87
+  },
+  {
+    "correta": 0,
+    "explicacao": "left/center/right/justify alinham o texto dentro do elemento. Para centralizar o TÍTULO do quiz: text-align: center.",
+    "opcoes": [
+      "Alinham o texto à esquerda, centro, direita ou justificado.",
+      "Movem o computador de lugar.",
+      "Alinham apenas imagens, nunca texto.",
+      "Só funcionam em segundas-feiras."
+    ],
+    "tema": "CSS",
+    "titulo": "Para que serve `text-align: center`?",
+    "nivel": "fundamental",
+    "id": 88
+  },
+  {
+    "correta": 1,
+    "explicacao": "block (div, p, h1) ocupa a linha toda e empilha. inline (span, a) fica lado a lado no texto. inline-block mistura os dois.",
+    "opcoes": [
+      "block é para fotos e inline é para vídeos.",
+      "block ocupa a linha toda e empilha; inline fica em sequência no texto.",
+      "Não existe diferença prática.",
+      "block só aparece no celular."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual a diferença entre `display: block` e `display: inline`?",
+    "nivel": "fundamental",
+    "id": 89
+  },
+  {
+    "correta": 2,
+    "explicacao": "/* ... */ é ignorado pelo navegador e serve para organizar e explicar o CSS para humanos.",
+    "opcoes": [
+      "`<!-- -->` como no HTML.",
+      "`// comentário`.",
+      "`/* comentário */`.",
+      "CSS não permite comentários."
+    ],
+    "tema": "CSS",
+    "titulo": "Como escrever um comentário em CSS?",
+    "nivel": "fundamental",
+    "id": 90
+  },
+  {
+    "correta": 0,
+    "explicacao": ":hover aplica estilo quando o mouse passa por cima (botão muda de cor = feedback visual). No celular não existe hover — use :active.",
+    "opcoes": [
+      "Muda a aparência quando o mouse passa por cima (ex: botão muda de cor).",
+      "Faz o elemento sumir para sempre.",
+      "Aumenta a conta de luz.",
+      "Só funciona em links, nunca em botões."
+    ],
+    "tema": "CSS",
+    "titulo": "O que o `:hover` faz num botão?",
+    "nivel": "fundamental",
+    "id": 91
+  },
+  {
+    "correta": 3,
+    "explicacao": "width = largura do elemento (ex: 300px ou 50%). É a base para controlar tamanhos de cards e colunas.",
+    "opcoes": [
+      "`tamanho`.",
+      "`largamento`.",
+      "`wide`.",
+      "`width`."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual propriedade define a largura de um elemento?",
+    "nivel": "fundamental",
+    "id": 92
+  },
+  {
+    "correta": 2,
+    "explicacao": "border = linha ao redor: espessura + estilo + cor. Ex: border: 3px solid black (as bordas divertidas do quiz!).",
+    "opcoes": [
+      "Pintar o fundo de listrado.",
+      "Apagar o elemento da tela.",
+      "Criar uma borda ao redor: espessura, estilo e cor.",
+      "Arredondar o computador."
+    ],
+    "tema": "CSS",
+    "titulo": "O que a propriedade `border` faz?",
+    "nivel": "fundamental",
+    "id": 93
+  },
+  {
+    "correta": 3,
+    "explicacao": "font-weight: bold (ou 700) = negrito. Também dá com a tag <strong> no HTML (que ainda ajuda acessibilidade).",
+    "opcoes": [
+      "`text-weight: heavy`.",
+      "`bold: yes`.",
+      "`font-style: grosso`.",
+      "`font-weight: bold`."
+    ],
+    "tema": "CSS",
+    "titulo": "Como deixar um texto em negrito com CSS?",
+    "nivel": "fundamental",
+    "id": 94
+  },
+  {
+    "correta": 1,
+    "explicacao": "`p { ... }` (sem ponto nem hashtag) pega TODOS os parágrafos da página. Seletor de elemento = nome da tag puro.",
+    "opcoes": [
+      "`.p`.",
+      "`p` puro (seletor de elemento pega todos os parágrafos).",
+      "`#p`.",
+      "`*p*`."
+    ],
+    "tema": "CSS",
+    "titulo": "Qual seletor estiliza TODOS os parágrafos?",
+    "nivel": "fundamental",
+    "id": 95
+  },
+  {
+    "correta": 0,
+    "explicacao": "Em empate, vale a regra escrita POR ÚLTIMO no CSS. (Especificidade maior — como um #id — passa na frente independente da ordem.)",
+    "opcoes": [
+      "Vale a regra escrita por último no arquivo.",
+      "Vale sempre a primeira regra.",
+      "O navegador sorteia uma delas.",
+      "Nenhuma vale; o estilo é ignorado."
+    ],
+    "tema": "CSS",
+    "titulo": "Se duas regras iguais pintam o texto de cores diferentes, qual vence?",
+    "nivel": "fundamental",
+    "id": 96
+  },
+  {
+    "correta": 2,
+    "explicacao": "margin: 0 auto divide as margens laterais igualmente, centralizando blocos com largura definida. Clássico para centralizar o card do quiz.",
+    "opcoes": [
+      "Com `text-align` no próprio bloco.",
+      "Com `float: center` (não existe).",
+      "Com `margin: 0 auto` em bloco com largura definida.",
+      "Não é possível centralizar blocos."
+    ],
+    "tema": "CSS",
+    "titulo": "Como centralizar um bloco (ex: o card) na página?",
+    "nivel": "fundamental",
+    "id": 97
+  },
+  {
+    "correta": 1,
+    "explicacao": "`* { margin: 0; }` zera a margem de TUDO de uma vez. Útil para resets, mas use com moderação.",
+    "opcoes": [
+      "Multiplicar todos os tamanhos por 2.",
+      "Selecionar TODOS os elementos de uma vez.",
+      "Criar senhas seguras.",
+      "Somar dois valores de cor."
+    ],
+    "tema": "CSS",
+    "titulo": "Para que serve o seletor `*` (asterisco)?",
+    "nivel": "fundamental",
+    "id": 98
+  },
+  {
+    "correta": 0,
+    "explicacao": "Responsivo = o layout SE ADAPTA: 3 colunas no PC viram 1 no celular, sem zoom e sem arrastar para o lado.",
+    "opcoes": [
+      "Um site cujo layout se adapta a celular, tablet e PC.",
+      "Um site que responde mensagens sozinho.",
+      "Um site que só abre no computador.",
+      "Um site com muitas propagandas."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que é um site responsivo?",
+    "nivel": "fundamental",
+    "id": 99
+  },
+  {
+    "correta": 2,
+    "explicacao": "Essa meta diz: 'largura = a do aparelho, sem zoom inicial'. Sem ela, o celular finge ter 980px e tudo sai minúsculo.",
+    "opcoes": [
+      "Aumentar o volume do celular.",
+      "Bloquear o acesso de computadores.",
+      "Dizer ao celular para usar sua largura real (sem ela o site abre minúsculo).",
+      "Ativar o modo escuro automático."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Para que serve `<meta name='viewport' content='width=device-width, initial-scale=1'>`?",
+    "nivel": "fundamental",
+    "id": 100
+  },
+  {
+    "correta": 1,
+    "explicacao": "Lê-se: 'se a tela tiver ATÉ 768px, aplique este CSS'. É o jeito de criar o visual mobile.",
+    "opcoes": [
+      "Repita este CSS 768 vezes.",
+      "Se a tela tiver até 768px de largura, aplique este CSS (visual mobile).",
+      "Apague o site em telas menores que 768px.",
+      "Aumente a tela do usuário para 768px."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que significa `@media (max-width: 768px) { ... }`?",
+    "nivel": "fundamental",
+    "id": 101
+  },
+  {
+    "correta": 3,
+    "explicacao": "Sem o viewport, o mobile emula uma tela de ~980px e encolhe tudo. Com o viewport, 1px do CSS = 1px real do aparelho.",
+    "opcoes": [
+      "Porque o celular está sem bateria.",
+      "Porque o Wi-Fi está lento.",
+      "Porque media query não funciona em celular.",
+      "Porque sem a meta viewport o celular simula ~980px e encolhe a página."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Por que o site abre minúsculo no celular, parecendo 'versão PC encolhida'?",
+    "nivel": "fundamental",
+    "id": 102
+  },
+  {
+    "correta": 2,
+    "explicacao": "max-width: 100% impede a imagem de estourar a tela; ela encolhe junto com o celular em vez de criar rolagem lateral.",
+    "opcoes": [
+      "Deixar a imagem invisível.",
+      "Dobrar o tamanho da imagem.",
+      "Fazer a imagem encolher junto com a tela, sem estourar nem criar rolagem.",
+      "Converter a foto em texto."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Para que serve `img { max-width: 100%; }`?",
+    "nivel": "fundamental",
+    "id": 103
+  },
+  {
+    "correta": 1,
+    "explicacao": "Mobile-first = desenhar primeiro para o celular (o mais limitado) e depois ADICIONAR coisas nas telas maiores com min-width.",
+    "opcoes": [
+      "Criar o site primeiro para o PC e depois esconder tudo no mobile.",
+      "Desenhar primeiro para o celular e ir melhorando nas telas maiores.",
+      "Comprar o celular mais caro para testar.",
+      "Fazer dois sites completamente separados."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que é mobile-first?",
+    "nivel": "fundamental",
+    "id": 104
+  },
+  {
+    "correta": 3,
+    "explicacao": "% = fração do pai; em/rem = fração da fonte; vw/vh = fração da tela. Todas AJUSTAM sozinhas — diferente do px fixo.",
+    "opcoes": [
+      "São unidades que só funcionam no PC.",
+      "São unidades proibidas desde 2024.",
+      "São iguais ao px, só muda o nome.",
+      "São unidades que se ajustam sozinhas (% do pai, em/rem da fonte, vw/vh da tela)."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que são unidades relativas (`%`, `em`, `rem`, `vw`)?",
+    "nivel": "fundamental",
+    "id": 105
+  },
+  {
+    "correta": 0,
+    "explicacao": "768px (tablet) e 1024px (PC pequeno) são os pontos clássicos onde o layout muda de 1 para 2-3 colunas. Não são lei, mas um ótimo começo.",
+    "opcoes": [
+      "768px e 1024px são pontos de quebra clássicos (tablet e telas maiores).",
+      "100px e 200px.",
+      "5000px e 9000px.",
+      "Breakpoints não existem; usa-se um só layout para tudo."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Quais valores comuns de breakpoint (pontos de quebra)?",
+    "nivel": "fundamental",
+    "id": 106
+  },
+  {
+    "correta": 2,
+    "explicacao": "flex-wrap: wrap deixa os itens QUEBRAREM para a linha de baixo quando não cabem — sem isso eles espremem ou estouram a tela.",
+    "opcoes": [
+      "Embrulhar o site para presente.",
+      "Congelar o layout para sempre.",
+      "Deixar os itens quebrarem para a linha de baixo quando não cabem.",
+      "Apagar os itens que sobram."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Para que serve `flex-wrap: wrap`?",
+    "nivel": "fundamental",
+    "id": 107
+  },
+  {
+    "correta": 0,
+    "explicacao": "As 3 barrinhas (☰) escondem o menu no celular e abrem ao toque, economizando a telinha. No PC o menu aparece aberto.",
+    "opcoes": [
+      "O botão de 3 barrinhas que esconde/mostra o menu no celular.",
+      "Um sanduíche de verdade entregue pelo site.",
+      "Um vírus de computador.",
+      "O botão de desligar o celular."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que é o menu hambúrguer?",
+    "nivel": "fundamental",
+    "id": 108
+  },
+  {
+    "correta": 3,
+    "explicacao": "Fluido usa % e se estica/encolhe suave. Fixo usa px e tem tamanho travado (quebra no celular). Responsivo = fluido + ajustes.",
+    "opcoes": [
+      "Não há diferença.",
+      "Fluido é para líquidos e fixo para sólidos.",
+      "Fixo é melhor em todos os casos.",
+      "Fluido (%) se adapta à tela; fixo (px) tem tamanho travado e quebra no mobile."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Qual a diferença entre layout fluido e layout fixo?",
+    "nivel": "fundamental",
+    "id": 109
+  },
+  {
+    "correta": 1,
+    "explicacao": "O iPhone dá zoom automático em inputs com fonte menor que 16px, escondendo o resto da tela. Com 16px+, ele não zooma.",
+    "opcoes": [
+      "Porque fonte pequena gasta mais bateria.",
+      "Porque o iPhone dá zoom sozinho em campos com fonte menor que 16px.",
+      "Porque o Google proíbe fontes pequenas.",
+      "Não há motivo; pode usar 8px à vontade."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Por que inputs no mobile devem ter fonte de pelo menos 16px?",
+    "nivel": "fundamental",
+    "id": 110
+  },
+  {
+    "correta": 2,
+    "explicacao": "Dedo é gordo e impreciso: alvos de 44-48px evitam toques errados (como marcar a alternativa vizinha no quiz!).",
+    "opcoes": [
+      "Porque botões grandes gastam menos internet.",
+      "Porque a lei exige botões gigantes.",
+      "Porque o dedo é impreciso: alvos pequenos causam toques errados.",
+      "Não importa; botão pode ter 5px."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Por que botões no celular precisam de ~44px de altura mínima?",
+    "nivel": "fundamental",
+    "id": 111
+  },
+  {
+    "correta": 0,
+    "explicacao": "No DevTools (F12), o ícone de celular simula telas, toque e até internet lenta — dá para testar responsivo sem ter 10 aparelhos.",
+    "opcoes": [
+      "O modo de simular telas de celular/tablet dentro do navegador (F12).",
+      "Uma barra de ferramentas para consertar celular quebrado.",
+      "Um antivírus do navegador.",
+      "Não existe isso no Chrome."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que é o Device Toolbar (modo responsivo) do DevTools?",
+    "nivel": "fundamental",
+    "id": 112
+  },
+  {
+    "correta": 3,
+    "explicacao": "Rolagem lateral = algo estourando a largura (imagem fixa, texto gigante, bloco com px). É o sintoma clássico de layout não-responsivo.",
+    "opcoes": [
+      "Que o site é premium e tem conteúdo extra.",
+      "Que a internet está rápida demais.",
+      "Que o celular está quebrado.",
+      "Que algo estourou a largura da tela — sinal de layout não adaptado."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que significa precisar arrastar a página para o LADO no celular?",
+    "nivel": "fundamental",
+    "id": 113
+  },
+  {
+    "correta": 1,
+    "explicacao": "max-width = 'até X aplique' (estilo mobile primeiro? não — desktop-first desce). min-width = 'a partir de X aplique' (mobile-first sobe). Decore: max desce, min sobe.",
+    "opcoes": [
+      "São iguais.",
+      "max-width aplica ATÉ certo tamanho; min-width aplica A PARTIR de certo tamanho.",
+      "min-width é para altura e max-width para largura.",
+      "Media queries não usam width."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Qual a diferença entre `max-width` e `min-width` nas media queries?",
+    "nivel": "fundamental",
+    "id": 114
+  },
+  {
+    "correta": 3,
+    "explicacao": "Emulador não mostra dedo gordo, sol na tela, 4G fraco nem bugs reais de cada aparelho. O teste final é no aparelho de verdade.",
+    "opcoes": [
+      "Porque o emulador é pago.",
+      "Porque programadores gostam de comprar celulares.",
+      "Porque o emulador mostra tudo errado sempre.",
+      "Porque toque real, rede fraca e telas variadas só aparecem no aparelho de verdade."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Por que testar no celular de verdade, e não só no emulador do PC?",
+    "nivel": "fundamental",
+    "id": 115
+  },
+  {
+    "correta": 0,
+    "explicacao": "Responsivo = UM layout flexível que se ajusta. Adaptativo = VÁRIOS layouts prontos (um para cada faixa). Na prática moderna, usa-se o responsivo.",
+    "opcoes": [
+      "Responsivo usa um layout flexível que se ajusta; adaptativo troca entre layouts prontos por faixa.",
+      "São a mesma coisa com nomes diferentes.",
+      "Adaptativo é para PC e responsivo é para geladeira.",
+      "Nenhum dos dois existe mais."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Qual a diferença entre design responsivo e adaptativo?",
+    "nivel": "fundamental",
+    "id": 116
+  },
+  {
+    "correta": 2,
+    "explicacao": "portrait = em pé (mais comum no celular); landscape = deitado (vídeos/jogos). Dá para mudar o CSS em cada caso.",
+    "opcoes": [
+      "São marcas de celular.",
+      "São tipos de vírus.",
+      "portrait = tela em pé; landscape = tela deitada.",
+      "São linguagens de programação."
+    ],
+    "tema": "Responsividade",
+    "titulo": "O que são orientações `portrait` e `landscape`?",
+    "nivel": "fundamental",
+    "id": 117
+  },
+  {
+    "correta": 1,
+    "explicacao": "srcset/picture oferecem a MESMA imagem em vários tamanhos e o navegador baixa só a ideal: leve no 4G, nítida no PC.",
+    "opcoes": [
+      "Enviar a foto por e-mail antes de mostrar.",
+      "Oferecer a imagem em vários tamanhos e deixar o navegador baixar só a ideal.",
+      "Proibir imagens no celular.",
+      "Transformar foto em desenho animado."
+    ],
+    "tema": "Responsividade",
+    "titulo": "Para que servem `srcset` e `<picture>`? (ideia básica)",
+    "nivel": "fundamental",
+    "id": 118
+  },
+  {
+    "correta": 3,
+    "explicacao": "JavaScript é a linguagem que dá VIDA à página: cliques, placar, validações, ranking dinâmico. HTML estrutura, CSS embeleza, JS interage.",
+    "opcoes": [
+      "Uma marca de café.",
+      "Um tipo de vírus de computador.",
+      "Uma versão do Java para geladeiras.",
+      "A linguagem que deixa a página interativa (cliques, placar, validações)."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O que é JavaScript?",
+    "nivel": "fundamental",
+    "id": 119
+  },
+  {
+    "correta": 0,
+    "explicacao": "O <script> com seu código vai no fim do body (ou com defer no head): assim o HTML carrega primeiro e o JS encontra os elementos.",
+    "opcoes": [
+      "Com a tag `<script>`, geralmente no fim do `<body>`.",
+      "Não precisa ligar; o navegador adivinha o código.",
+      "Só dá para ligar via Wi-Fi.",
+      "Escrevendo o código dentro de uma imagem."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como ligar o JavaScript à página HTML?",
+    "nivel": "fundamental",
+    "id": 120
+  },
+  {
+    "correta": 2,
+    "explicacao": "let = valor que MUDA (placar). const = valor FIXO (nome do quiz). var = antigo, evite. Regra: const por padrão, let quando precisar mudar.",
+    "opcoes": [
+      "São três marcas de computador.",
+      "Não há diferença nenhuma.",
+      "let guarda valor que muda, const guarda valor fixo, var é o jeito antigo (evite).",
+      "let é para texto e const é para números."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Qual a diferença entre `let`, `const` e `var`?",
+    "nivel": "fundamental",
+    "id": 121
+  },
+  {
+    "correta": 1,
+    "explicacao": "string = texto ('Ana'), number = número (10, 9.5), boolean = true/false (acertou?). Quase todo bug de iniciante é misturar esses tipos.",
+    "opcoes": [
+      "string, parágrafo e título.",
+      "string (texto), number (número) e boolean (verdadeiro/falso).",
+      "azul, verde e amarelo.",
+      "alto, médio e baixo."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Quais os 3 tipos de dados mais usados?",
+    "nivel": "fundamental",
+    "id": 122
+  },
+  {
+    "correta": 0,
+    "explicacao": "console.log(x) imprime no console do DevTools (F12). É a lanterna do programador: mostra valores e acha bugs.",
+    "opcoes": [
+      "Com `console.log()`, vendo o resultado no console do DevTools (F12).",
+      "Gritando o valor em voz alta.",
+      "Não é possível ver valores em JavaScript.",
+      "Escrevendo num papel."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como ver o valor de uma variável para depurar?",
+    "nivel": "fundamental",
+    "id": 123
+  },
+  {
+    "correta": 2,
+    "explicacao": "Função = bloco reutilizável que recebe entradas e devolve um resultado. Ex: somar(a, b) calcula sempre que chamada.",
+    "opcoes": [
+      "Um tipo de festa de programadores.",
+      "Um vírus que se multiplica.",
+      "Um bloco de código reutilizável que recebe valores e devolve um resultado.",
+      "Uma foto do código."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O que é uma função?",
+    "nivel": "fundamental",
+    "id": 124
+  },
+  {
+    "correta": 1,
+    "explicacao": "if testa a condição: se for true roda um bloco, senão (else) roda outro. Ex: se nota >= 6, aprovado; senão, recuperação.",
+    "opcoes": [
+      "Serve para enfeitar o código.",
+      "Testa uma condição: executa um bloco se for verdadeira, outro se for falsa.",
+      "Repete o código para sempre.",
+      "Apaga variáveis automaticamente."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como funciona o `if/else`?",
+    "nivel": "fundamental",
+    "id": 125
+  },
+  {
+    "correta": 3,
+    "explicacao": "document.getElementById('placar') acha o elemento com id='placar'. A partir daí dá para ler e mudar texto, cor, tudo.",
+    "opcoes": [
+      "Com `achar('placar')`.",
+      "Com `pegarElemento('placar')`.",
+      "Não é possível; JS não enxerga o HTML.",
+      "Com `document.getElementById('placar')`."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como pegar um elemento do HTML pelo id?",
+    "nivel": "fundamental",
+    "id": 126
+  },
+  {
+    "correta": 0,
+    "explicacao": "addEventListener('click', função) diz: 'quando clicarem aqui, rode isso'. É assim que os botões do quiz respondem.",
+    "opcoes": [
+      "Com `botao.addEventListener('click', minhaFuncao)`.",
+      "Com `botao.seMexer()`.",
+      "Botões funcionam sozinhos, sem código.",
+      "Só com pilhas novas no mouse."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como fazer algo acontecer ao clicar num botão?",
+    "nivel": "fundamental",
+    "id": 127
+  },
+  {
+    "correta": 3,
+    "explicacao": "Array = lista ordenada entre colchetes: ['Ana','Bia','Caio']. Posições começam no 0: lista[0] é 'Ana'.",
+    "opcoes": [
+      "Um tipo de foto.",
+      "Um vírus em forma de lista.",
+      "Uma senha forte.",
+      "Uma lista ordenada entre colchetes, com posições começando no 0."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O que é um array? Ex: `['Ana','Bia']`.",
+    "nivel": "fundamental",
+    "id": 128
+  },
+  {
+    "correta": 1,
+    "explicacao": "for repete com contador: i vai de 0 até 3, mostrando as 4 alternativas uma por uma, sem copiar código.",
+    "opcoes": [
+      "Ele apaga o código.",
+      "Ele repete um bloco várias vezes (ex: mostrar as 4 alternativas).",
+      "Ele para o computador.",
+      "Ele só funciona uma vez."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Para que serve o laço `for`?",
+    "nivel": "fundamental",
+    "id": 129
+  },
+  {
+    "correta": 2,
+    "explicacao": "Objeto agrupa dados nomeados: {nome:'Ana', pontos: 38}. Acessa com ponto: jogador.pontos. Perfeito para o ranking!",
+    "opcoes": [
+      "Um planeta do sistema solar.",
+      "Um erro grave do programa.",
+      "Um pacote de dados com nome: {nome: 'Ana', pontos: 38}.",
+      "Um tipo de botão redondo."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O que é um objeto? Ex: `{nome: 'Ana', pontos: 38}`.",
+    "nivel": "fundamental",
+    "id": 130
+  },
+  {
+    "correta": 0,
+    "explicacao": "Valor de input vem como TEXTO ('10' + '5' = '105'!). Number('10') vira número de verdade (10 + 5 = 15).",
+    "opcoes": [
+      "Com `Number()`: input sempre vem como texto e precisa virar número para somar.",
+      "Não precisa; texto soma normalmente.",
+      "Multiplicando por zero.",
+      "Apagando e digitando de novo."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como transformar o texto digitado em número para calcular a nota?",
+    "nivel": "fundamental",
+    "id": 131
+  },
+  {
+    "correta": 3,
+    "explicacao": "JSON = texto padronizado para trocar dados {\"nome\":\"Ana\"}. É assim que front e back conversam, e como guardamos o ranking.",
+    "opcoes": [
+      "Um canal de TV.",
+      "Um tipo de café forte.",
+      "O nome do criador do JavaScript.",
+      "Um formato de texto padrão para trocar dados entre sistemas."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O que é JSON?",
+    "nivel": "fundamental",
+    "id": 132
+  },
+  {
+    "correta": 2,
+    "explicacao": "setItem('chave', valor) GUARDA; getItem('chave') LÊ. Os dados ficam salvos no navegador mesmo fechando a aba.",
+    "opcoes": [
+      "`guardar()` e `pegar()`.",
+      "`salvar()` e `abrir()`.",
+      "`setItem()` guarda e `getItem()` lê dados no navegador.",
+      "Não existe como guardar dados no navegador."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como guardar e ler um dado no localStorage?",
+    "nivel": "fundamental",
+    "id": 133
+  },
+  {
+    "correta": 0,
+    "explicacao": "localStorage só aceita TEXTO. Número 38 vira '38' sozinho; objeto precisa de JSON.stringify, senão vira '[object Object]'.",
+    "opcoes": [
+      "Sim! Ele só guarda strings (texto) — objetos precisam virar texto com JSON.",
+      "Não, ele guarda fotos e vídeos originais.",
+      "Ele guarda qualquer coisa, até senhas com segurança total.",
+      "Ele só guarda números."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O localStorage guarda qualquer tipo de dado?",
+    "nivel": "fundamental",
+    "id": 134
+  },
+  {
+    "correta": 1,
+    "explicacao": "removeItem('chave') apaga UM dado; clear() apaga TUDO do site. Útil para 'sair' ou resetar o jogo.",
+    "opcoes": [
+      "Não dá para apagar nunca.",
+      "Com `removeItem()` (um dado) ou `clear()` (tudo).",
+      "Fechando o navegador apaga tudo sempre.",
+      "Formatando o computador."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como apagar dados do localStorage?",
+    "nivel": "fundamental",
+    "id": 135
+  },
+  {
+    "correta": 3,
+    "explicacao": "localStorage PERSISTE: fecha aba, desliga o PC, volta dias depois — está lá. (Quem some ao fechar é o sessionStorage.)",
+    "opcoes": [
+      "Some tudo para sempre.",
+      "Vai para a nuvem automaticamente.",
+      "Vira vírus.",
+      "Nada se perde: localStorage persiste mesmo fechando o navegador."
+    ],
+    "tema": "JavaScript",
+    "titulo": "O que acontece com o localStorage ao fechar o navegador?",
+    "nivel": "fundamental",
+    "id": 136
+  },
+  {
+    "correta": 2,
+    "explicacao": "JSON.stringify(objeto) vira texto para guardar; JSON.parse(texto) vira objeto ao ler. Essa dupla é o padrão para ranking e configs.",
+    "opcoes": [
+      "Tirando foto do objeto.",
+      "Não é possível guardar objetos.",
+      "Com `JSON.stringify` para guardar e `JSON.parse` para ler.",
+      "Copiando à mão cada campo."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Como guardar um OBJETO (ex: jogador com nome e pontos) no localStorage?",
+    "nivel": "fundamental",
+    "id": 137
+  },
+  {
+    "correta": 1,
+    "explicacao": "null = 'vazio de propósito' (você esvaziou). undefined = 'nem existe / não foi definido'. getItem de chave inexistente retorna null!",
+    "opcoes": [
+      "São a mesma coisa.",
+      "null é vazio proposital; undefined é algo que nem foi definido.",
+      "null é erro e undefined é acerto.",
+      "Nenhum dos dois existe em JavaScript."
+    ],
+    "tema": "JavaScript",
+    "titulo": "Qual a diferença entre `null` e `undefined`?",
+    "nivel": "fundamental",
+    "id": 138
+  },
+  {
+    "tema": "Nginx",
+    "nivel": "fundamental",
+    "correta": 1,
+    "titulo": "No Ubuntu, para que servem as pastas `sites-available` e `sites-enabled`?",
+    "opcoes": [
+      "Guardam as fotos dos usuários do site.",
+      "sites-available guarda as configs de todos os sites; sites-enabled tem atalhos só para os sites LIGADOS.",
+      "São lixeiras automáticas do Nginx.",
+      "Guardam os vírus bloqueados pelo servidor."
+    ],
+    "explicacao": "Você cria a config em sites-available e ativa com um link simbólico em sites-enabled (comando ln -s). Sem o link, o site fica desligado.",
+    "id": 139
+  },
+  {
+    "tema": "HTML",
+    "nivel": "fundamental",
+    "correta": 3,
+    "titulo": "O que são atributos? Ex: `src`, `href`, `alt`.",
+    "opcoes": [
+      "Vírus escondidos nas tags.",
+      "Comentários invisíveis do programador.",
+      "Erros de digitação que o navegador ignora.",
+      "Informações extras dentro da tag que configuram o elemento (origem da imagem, destino do link, descrição)."
+    ],
+    "explicacao": "Atributos = configurações da tag, sempre nome='valor'. Ex: <img src='foto.jpg' alt='gato'> — src diz ONDE está, alt diz O QUE é.",
+    "id": 140
+  }
+]

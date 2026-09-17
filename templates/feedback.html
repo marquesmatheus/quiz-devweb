@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Feedback • Quiz DevWeb{% endblock %}
+{% block content %}
+<div class="card feedback pop {{ 'ok' if last.acertou else 'no' }}">
+  {% if last.acertou %}
+    <div class="big-emoji">🎉✅</div>
+    <h1 class="fb-ok">ACERTOU! Mandou bem!</h1>
+    <p class="fb-sub">+1 ponto para <b>{{ user.nome }}</b> ⭐</p>
+  {% else %}
+    <div class="big-emoji">💥❌</div>
+    <h1 class="fb-no">OPS... ERROU!</h1>
+    <p class="fb-sub">Você marcou <b class="pill pill-you">{{ letters[last.escolha] if last.escolha >= 0 else '—' }}</b>
+       • certa era <b class="pill pill-ok">{{ letters[last.correta] }}</b></p>
+  {% endif %}
+  <div class="progress mini"><div class="bar" style="width:{{ progresso }}%"></div></div>
+  <p class="q-recap"><b>Questão {{ last.n }}/{{ total }} • {{ last.tema }}:</b> {{ last.titulo }}</p>
+  <div class="answers-recap">
+    {% for op in last.opcoes %}
+      {% set i = loop.index0 %}
+      <div class="recap {{ 'is-correct' if i==last.correta else '' }} {{ 'is-wrong' if i==last.escolha and not last.acertou else '' }}">
+        <b>{{ letters[i] }})</b> {{ op }}
+        {% if i==last.correta %} ✅{% endif %}
+        {% if i==last.escolha and not last.acertou %} 👈 sua resposta{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="explain">📖 <b>Por quê?</b> {{ last.explicacao }}</div>
+  {% if ultima %}
+    <a class="btn btn-go" href="{{ url_for('resultado') }}">🏁 VER MEU RESULTADO FINAL!</a>
+  {% else %}
+    <a class="btn btn-go" href="{{ url_for('quiz') }}">PRÓXIMA QUESTÃO ➜ ({{ idx+1 }}/{{ total }})</a>
+  {% endif %}
+</div>
+{% if last.acertou %}
+<canvas id="confetti"></canvas>
+<script>
+const c = document.getElementById('confetti'), ctx = c.getContext('2d');
+c.width = innerWidth; c.height = innerHeight;
+const parts = Array.from({length: 120}, () => ({
+  x: Math.random()*c.width, y: Math.random()*-c.height,
+  w: 6+Math.random()*8, h: 8+Math.random()*10,
+  col: ['#FF6B35','#7C3AED','#FFC93C','#22C55E','#EC4899'][Math.floor(Math.random()*5)],
+  vy: 2+Math.random()*3, vx: -1+Math.random()*2, r: Math.random()*Math.PI
+}));
+(function anim(){
+  ctx.clearRect(0,0,c.width,c.height);
+  parts.forEach(p => { p.y+=p.vy; p.x+=p.vx; p.r+=0.05;
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+    ctx.fillStyle=p.col; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+    if(p.y>c.height){p.y=-20;p.x=Math.random()*c.width;} });
+  requestAnimationFrame(anim);
+})();
+setTimeout(()=>c.remove(), 4000);
+</script>
+{% endif %}
+{% endblock %}

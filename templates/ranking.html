@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Ranking • Quiz DevWeb{% endblock %}
+{% block content %}
+<div class="card pop">
+  <h1 class="center">🏆 RANKING DA TURMA 🏆</h1>
+  <p class="center muted">Salvo em <code>results.json</code> • quem sabe mais, sobe!</p>
+  {% if ranking %}
+    <div class="podium">
+      {% for r in ranking[:3] %}
+      <div class="pod pos{{ loop.index }}">
+        <div class="medal">{{ '🥇' if loop.index==1 else '🥈' if loop.index==2 else '🥉' }}</div>
+        {% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}<span class="big-fox">🦊</span>{% endif %}
+        <b>{{ r.nome }}</b>
+        <span class="pts">{{ r.acertos }}/{{ r.total }} • {{ r.percentual }}%</span>
+        <small>{% if r.modo %}{{ r.modo }} • {% endif %}{{ r.data }}</small>
+      </div>
+      {% endfor %}
+    </div>
+    <table class="rank-table">
+      <thead><tr><th>#</th><th>Jogador</th><th>Acertos</th><th>%</th><th>Modo</th><th>Data</th></tr></thead>
+      <tbody>
+      {% for r in ranking %}
+        <tr class="{{ 'me' if session.get('user') and r.nome==session.user.nome else '' }}">
+          <td>{{ loop.index }} {{ '👑' if loop.index==1 else '' }}</td>
+          <td class="who">{% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}🦊{% endif %} <b>{{ r.nome }}</b></td>
+          <td><b>{{ r.acertos }}/{{ r.total }}</b></td>
+          <td>{{ r.percentual }}%</td>
+          <td><small>{{ r.modo or '—' }}</small></td>
+          <td><small>{{ r.data }}</small></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="center">😴 Ninguém jogou ainda. <a href="{{ url_for('index') }}">Seja o primeiro!</a></p>
+  {% endif %}
+  <div class="center btn-row">
+    <a class="btn btn-go" href="{{ url_for('index') }}">▶ Jogar agora</a>
+  </div>
+</div>
+{% endblock %}

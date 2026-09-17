@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Questão {{ idx+1 }} • Quiz DevWeb{% endblock %}
+{% block content %}
+<div class="progress-wrap card">
+  <div class="progress-top">
+    <span>❓ Questão <b>{{ idx+1 }}/{{ total }}</b></span>
+    <span>⭐ Acertos: <b>{{ acertos_parciais }}</b></span>
+  </div>
+  <div class="progress"><div class="bar" style="width:{{ progresso }}%"></div></div>
+  <div class="player-line">
+    {% if user.foto %}<img src="{{ url_for('static', filename=user.foto) }}">{% else %}🦊{% endif %}
+    <b>{{ user.nome }}</b> jogando...
+  </div>
+</div>
+
+<form class="card question-card pop" method="POST" id="quizForm">
+  <span class="tema t-{{ 'nginx' if q.tema=='Nginx' else 'html' if q.tema=='HTML' else 'css' if q.tema=='CSS' else 'resp' if 'espons' in q.tema else 'js' }}">
+    {{ '🔀' if q.tema=='Nginx' else '📝' if q.tema=='HTML' else '🎨' if q.tema=='CSS' else '📱' if 'espons' in q.tema else '⚡' }} {{ q.tema }} • Questão {{ idx+1 }}/{{ total }}
+  </span>
+  <h2 class="q-title">{{ q.titulo }}</h2>
+  <div class="options">
+    {% for op in q.opcoes %}
+    {% set i = loop.index0 %}
+    <label class="opt opt-{{ i }}">
+      <input type="radio" name="escolha" value="{{ i }}" required>
+      <span class="badge">{{ letters[i] }}</span>
+      <span class="opt-text">{{ op }}</span>
+    </label>
+    {% endfor %}
+  </div>
+  <button class="btn btn-go" type="submit">CONFIRMAR RESPOSTA 🚀</button>
+  <p class="hint">💡 Dica: leia o código com calma, as pegadinhas estão nos detalhes!</p>
+</form>
+{% endblock %}
+{% block scripts %}
+<script>
+// seleciona com clique animado
+document.querySelectorAll('.opt').forEach(o => {
+  o.addEventListener('click', () => {
+    document.querySelectorAll('.opt').forEach(x => x.classList.remove('picked'));
+    o.classList.add('picked');
+  });
+});
+</script>
+{% endblock %}

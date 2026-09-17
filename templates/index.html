@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Começar • Quiz DevWeb 🕹️{% endblock %}
+{% block content %}
+<div class="hero card pop">
+  <div class="hero-emoji">🚀🦄💻</div>
+  <h1>DESAFIO <span class="hl-orange">DEV</span><span class="hl-purple">WEB</span>!</h1>
+  <p class="subtitle"><b>140 questões</b> sobre <span class="tag t-nginx">Nginx proxy reverso</span> <span class="tag t-html">HTML</span> <span class="tag t-css">CSS</span> <span class="tag t-resp">Responsividade</span> <span class="tag t-js">JS + localStorage</span><br>🌱 <b>{{ counts.fundamental }} fundamentos</b> para reforçar a base + 🔥 <b>{{ counts.avancado }} avançadas</b> casca-grossa.<br>Respostas <b>mega misturadas</b>. Sem decoreba de “letra C”. 😈</p>
+  <div class="rules">
+    <div>🎯 <b>1 pergunta por vez</b> com correção na hora</div>
+    <div>✅❌ Feedback + explicação de cada erro</div>
+    <div>🔀 Ordem e alternativas embaralhadas por jogador (anti-cola!)</div>
+    <div>🏆 Ranking salvo em JSON com sua foto</div>
+  </div>
+</div>
+
+<div class="grid2">
+  <form class="card form-card" method="POST" enctype="multipart/form-data">
+    <h2>🎮 Quem vai jogar?</h2>
+    {% if erro %}<div class="alert-err">{{ erro }}</div>{% endif %}
+    <label class="lbl">Seu nome ou apelido *</label>
+    <input class="input" type="text" name="nome" maxlength="40" placeholder="Ex: Ana Dev 🦊" required>
+    <label class="lbl">Sua foto (vale selfie divertida 🤪)</label>
+    <div class="photo-row">
+      <img id="preview" class="avatar-preview" src="https://api.dicebear.com/9.x/adventurer/svg?seed=Anon" alt="preview">
+      <div>
+        <input class="input-file" type="file" name="foto" id="foto" accept="image/*">
+        <small>Opcional • png/jpg/gif/webp</small>
+      </div>
+    </div>
+    <label class="lbl">Escolha o modo 🎯</label>
+    <div class="mode-pick">
+      <label class="mode-card">
+        <input type="radio" name="modo" value="fundamental" checked>
+        <b>🌱 Fundamentos</b>
+        <small>{{ counts.fundamental }} questões para reforçar a base</small>
+      </label>
+      <label class="mode-card">
+        <input type="radio" name="modo" value="avancado">
+        <b>🔥 Avançado</b>
+        <small>{{ counts.avancado }} questões casca-grossa</small>
+      </label>
+      <label class="mode-card">
+        <input type="radio" name="modo" value="completo">
+        <b>🏁 Maratona</b>
+        <small>{{ counts.completo }} questões, tudo misturado!</small>
+      </label>
+    </div>
+    <button class="btn btn-go" type="submit">▶ COMEÇAR O DESAFIO!</button>
+  </form>
+
+  <div class="card">
+    <h2>🌟 Top jogadas</h2>
+    {% if top3 %}
+      <ol class="mini-rank">
+      {% for r in top3 %}
+        <li>
+          {% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}<span class="mini-emoji">🦊</span>{% endif %}
+          <b>{{ r.nome }}</b> — {{ r.acertos }}/{{ r.total }} ({{ r.percentual }}%)
+        </li>
+      {% endfor %}
+      </ol>
+    {% else %}
+      <p class="muted">Ninguém jogou ainda... seja a primeira lenda! 🦄</p>
+    {% endif %}
+    <a class="btn btn-purple" href="{{ url_for('ranking') }}">🏆 Ver ranking completo</a>
+    <div class="tips">
+      <b>📚 O que vai cair?</b>
+      <ul>
+        <li>🔀 Nginx: proxy_pass, headers, cache, SSL, balanceamento</li>
+        <li>📝 HTML: semântica, forms, dialog, performance</li>
+        <li>🎨 CSS: especificidade, flex, grid, stacking, clamp</li>
+        <li>📱 Responsivo: viewport, picture, container queries, dvh</li>
+        <li>⚡ JS: hoisting, closures, event loop, fetch, localStorage</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const inp = document.getElementById('foto');
+const prev = document.getElementById('preview');
+if (inp) inp.addEventListener('change', () => {
+  const f = inp.files[0];
+  if (f) prev.src = URL.createObjectURL(f);
+});
+</script>
+{% endblock %}

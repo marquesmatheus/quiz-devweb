@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Quiz DevWeb 🕹️{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="bg-doodles">⭐ ● ▲ ■ ♥ ● ⭐ ▲ ● ■ ♥ ⭐ ● ▲</div>
+<header class="topbar">
+  <a class="logo" href="{{ url_for('index') }}">🕹️ Quiz<span>DevWeb</span></a>
+  <nav>
+    <a href="{{ url_for('index') }}">🏠 Início</a>
+    <a href="{{ url_for('ranking') }}">🏆 Ranking</a>
+    {% if session.get('user') %}
+      <span class="player-chip">
+        {% if session.user.foto %}
+          <img src="{{ url_for('static', filename=session.user.foto) }}" alt="foto">
+        {% else %}🦊{% endif %}
+        {{ session.user.nome }}
+      </span>
+      <a href="{{ url_for('sair') }}" class="btn-mini">sair</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="wrap">
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer">
+  Feito com 💜 + 🍕 para a turma de Desenvolvimento Web • Nginx • HTML • CSS • JS • localStorage
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>
