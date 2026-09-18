@@ -49,19 +49,20 @@
   </form>
 
   <div class="card">
-    <h2>🌟 Top jogadas</h2>
-    {% if top3 %}
-      <ol class="mini-rank">
-      {% for r in top3 %}
-        <li>
-          {% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}<span class="mini-emoji">🦊</span>{% endif %}
-          <b>{{ r.nome }}</b> — {{ r.acertos }}/{{ r.total }} ({{ r.percentual }}%)
-        </li>
-      {% endfor %}
-      </ol>
-    {% else %}
-      <p class="muted">Ninguém jogou ainda... seja a primeira lenda! 🦄</p>
-    {% endif %}
+    <h2>🌟 Top por modo</h2>
+    <ol class="mini-rank">
+    {% for modo, best in top_modes %}
+      <li>
+        {% if best %}
+          {% if best.foto %}<img src="{{ url_for('static', filename=best.foto) }}">{% else %}<span class="mini-emoji">🦊</span>{% endif %}
+          <b>{{ best.nome }}</b> — {{ best.acertos }}/{{ best.total }} ({{ best.percentual }}%) <small>{{ modo }}</small>
+        {% else %}
+          <span class="mini-emoji">😴</span>
+          <span class="muted">{{ modo }}: ninguém ainda — seja a lenda!</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ol>
     <a class="btn btn-purple" href="{{ url_for('ranking') }}">🏆 Ver ranking completo</a>
     <div class="tips">
       <b>📚 O que vai cair?</b>

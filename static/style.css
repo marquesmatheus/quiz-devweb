@@ -133,4 +133,8 @@ h1,h2,.logo,.btn{font-family:'Fredoka',sans-serif}
 .mode-card input{width:20px; height:20px; accent-color:var(--purple)}
 .mode-card b{font-size:15px}
 .mode-card small{display:block; color:#6b6259; font-weight:700}
+.rank-nav{margin:6px 0 4px}
+.btn-mini-nav{font-size:14px; padding:8px 14px; background:#fff}
+.rank-section{margin-top:26px; padding-top:14px; border-top:3px dashed var(--ink)}
+.rank-section:first-of-type{border-top:none; padding-top:0}
 code{background:#1F1B16; color:var(--yellow); padding:1px 6px; border-radius:6px}

@@ -122,8 +122,12 @@ def index():
         session["seed"] = random.randrange(2 ** 31)
         return redirect(url_for("quiz"))
     counts = mode_counts()
-    ranking = sorted(load_results(), key=rank_key)[:3]
-    return render_template("index.html", top3=ranking, modes=MODES, counts=counts)
+    allres = load_results()
+    top_modes = []
+    for m in ("fundamental", "avancado", "completo"):
+        grp = sorted([r for r in allres if r.get("modo") == MODES[m]], key=rank_key)
+        top_modes.append((MODES[m], grp[0] if grp else None))
+    return render_template("index.html", top_modes=top_modes, modes=MODES, counts=counts)
 
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz():
@@ -233,8 +237,8 @@ def resultado():
     else:
         msg = "NÃO DESISTA! 🌱 Revise e tente de novo!"
 
-    # posição no ranking (vale % primeiro, para comparar modos diferentes)
-    ranking = sorted(load_results(), key=rank_key)
+    # posição no ranking DO MODO jogado
+    ranking = sorted([r for r in load_results() if r.get("modo") == modo_label], key=rank_key)
     posicao = next((i + 1 for i, r in enumerate(ranking)
                     if r["nome"] == session["user"]["nome"] and r["acertos"] == acertos), "-")
 
@@ -245,8 +249,14 @@ def resultado():
 
 @app.route("/ranking")
 def ranking():
-    results = sorted(load_results(), key=rank_key)
-    return render_template("ranking.html", ranking=results)
+    results = load_results()
+    grouped = {}
+    for m in ("fundamental", "avancado", "completo"):
+        grouped[m] = sorted([r for r in results if r.get("modo") == MODES[m]], key=rank_key)
+    sem_modo = sorted([r for r in results if not r.get("modo")], key=rank_key)
+    return render_template("ranking.html", grouped=grouped, modes=MODES,
+                           mode_order=("fundamental", "avancado", "completo"),
+                           sem_modo=sem_modo)
 
 @app.route("/reiniciar")
 def reiniciar():

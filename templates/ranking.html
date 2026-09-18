@@ -3,37 +3,69 @@
 {% block content %}
 <div class="card pop">
   <h1 class="center">🏆 RANKING DA TURMA 🏆</h1>
-  <p class="center muted">Salvo em <code>results.json</code> • quem sabe mais, sobe!</p>
-  {% if ranking %}
-    <div class="podium">
-      {% for r in ranking[:3] %}
-      <div class="pod pos{{ loop.index }}">
-        <div class="medal">{{ '🥇' if loop.index==1 else '🥈' if loop.index==2 else '🥉' }}</div>
-        {% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}<span class="big-fox">🦊</span>{% endif %}
-        <b>{{ r.nome }}</b>
-        <span class="pts">{{ r.acertos }}/{{ r.total }} • {{ r.percentual }}%</span>
-        <small>{% if r.modo %}{{ r.modo }} • {% endif %}{{ r.data }}</small>
+  <p class="center muted">Salvo em <code>results.json</code> • separado por modo • quem sabe mais, sobe!</p>
+  <div class="center btn-row rank-nav">
+    {% for m in mode_order %}
+    <a class="btn btn-mini-nav" href="#modo-{{ m }}">{{ modes[m] }}</a>
+    {% endfor %}
+  </div>
+
+  {% for m in mode_order %}
+  {% set lista = grouped[m] %}
+  <div id="modo-{{ m }}" class="rank-section">
+    <h2 class="section-title">{{ modes[m] }} <small class="muted">({{ lista|length }} jogadas)</small></h2>
+    {% if lista %}
+      <div class="podium">
+        {% for r in lista[:3] %}
+        <div class="pod pos{{ loop.index }}">
+          <div class="medal">{{ '🥇' if loop.index==1 else '🥈' if loop.index==2 else '🥉' }}</div>
+          {% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}<span class="big-fox">🦊</span>{% endif %}
+          <b>{{ r.nome }}</b>
+          <span class="pts">{{ r.acertos }}/{{ r.total }} • {{ r.percentual }}%</span>
+          <small>{{ r.data }}</small>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
+      <table class="rank-table">
+        <thead><tr><th>#</th><th>Jogador</th><th>Acertos</th><th>%</th><th>Data</th></tr></thead>
+        <tbody>
+        {% for r in lista %}
+          <tr class="{{ 'me' if session.get('user') and r.nome==session.user.nome else '' }}">
+            <td>{{ loop.index }} {{ '👑' if loop.index==1 else '' }}</td>
+            <td class="who">{% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}🦊{% endif %} <b>{{ r.nome }}</b></td>
+            <td><b>{{ r.acertos }}/{{ r.total }}</b></td>
+            <td>{{ r.percentual }}%</td>
+            <td><small>{{ r.data }}</small></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="center muted">😴 Ninguém jogou este modo ainda. <a href="{{ url_for('index') }}">Seja o primeiro!</a></p>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% if sem_modo %}
+  <div class="rank-section">
+    <h2 class="section-title">🗂️ Jogadas antigas</h2>
     <table class="rank-table">
-      <thead><tr><th>#</th><th>Jogador</th><th>Acertos</th><th>%</th><th>Modo</th><th>Data</th></tr></thead>
+      <thead><tr><th>#</th><th>Jogador</th><th>Acertos</th><th>%</th><th>Data</th></tr></thead>
       <tbody>
-      {% for r in ranking %}
-        <tr class="{{ 'me' if session.get('user') and r.nome==session.user.nome else '' }}">
-          <td>{{ loop.index }} {{ '👑' if loop.index==1 else '' }}</td>
+      {% for r in sem_modo %}
+        <tr>
+          <td>{{ loop.index }}</td>
           <td class="who">{% if r.foto %}<img src="{{ url_for('static', filename=r.foto) }}">{% else %}🦊{% endif %} <b>{{ r.nome }}</b></td>
           <td><b>{{ r.acertos }}/{{ r.total }}</b></td>
           <td>{{ r.percentual }}%</td>
-          <td><small>{{ r.modo or '—' }}</small></td>
           <td><small>{{ r.data }}</small></td>
         </tr>
       {% endfor %}
       </tbody>
     </table>
-  {% else %}
-    <p class="center">😴 Ninguém jogou ainda. <a href="{{ url_for('index') }}">Seja o primeiro!</a></p>
+  </div>
   {% endif %}
+
   <div class="center btn-row">
     <a class="btn btn-go" href="{{ url_for('index') }}">▶ Jogar agora</a>
   </div>
